@@ -1,0 +1,51 @@
+Page Admin :
+	
+	- user (accès au site)
+	- admin (accès backoffice)
+
+global (sur toutes les pages) :
+	
+	- newslatter pour chaques modifs ou parution des offres limitées
+	- carousel avec 3 images random
+	- 1 question
+
+Accueil :
+	
+	- présentation CSE
+	- Afficher les 3 dernières offres + pagination pour les anciennes
+
+A propos de nous :
+
+	- les membres du CSE
+	- le règlement du CSE
+	- L'adresse email du CSE
+	- La liste des actions du CSE
+
+Partenariats :
+
+	- présenter chaque partenariat 
+
+Billeterie :
+	
+	- 2 catégories :
+		
+		- Offres permanentes (présenter les offres)
+		- Offres limitées (présenter les offres)
+
+Contact :
+
+	- Formulaire de contact 
+
+
+Backoffice : 
+
+	- m/a présentation Acceuil
+	- m/a A propos de nous
+	- A/M/S Partenariats
+	- A/M/S Tarifs billeterie + Envoie de mail lors d'ajout d'offres limitées
+	- A/M/S Offres limitées
+	- Activer/Désactiver mini sondage
+	- Modifier la question du mini sondage
+	- Afficher questions/réponses/stats des anciens mini-sondages
+	- Gestion des Comptes admin
+	- Afficher les messages de contact
