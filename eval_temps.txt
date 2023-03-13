@@ -1,0 +1,14 @@
+Page Accueil:
+
+	5h pour l'affichage / ajout / modif de la présentation du CSE
+		affichage des offres limitées et pagination
+
+Page A propos :
+
+	3h pour l'affichage / ajout / modification 
+		membres CSE
+		règlement CSE
+		adresse mail CSE
+		actions CSE
+
+
