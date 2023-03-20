@@ -5,7 +5,12 @@
 {% block body %}
     <div style="background-color:dark;">
         {% for partner in partners %}
-            {{partner.name}}
+            <div>
+                {{partner.name}}
+                {{partner.website}}
+                {{partner.description}}
+                {{partner.name}}
+            </div>
         {% endfor %}
     </div>
 {% endblock %}
