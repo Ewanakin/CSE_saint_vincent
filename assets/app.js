@@ -10,7 +10,7 @@ import './styles/app.css';
 
 // start the Stimulus application
 import './bootstrap';
-
+import './toasts';
 import Alpine from 'alpinejs'
 
 window.Alpine = Alpine

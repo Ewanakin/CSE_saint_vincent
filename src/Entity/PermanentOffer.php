@@ -6,7 +6,7 @@ use App\Repository\PermanantOfferRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PermanantOfferRepository::class)]
-class PermanantOffer extends Offer
+class PermanentOffer extends Offer
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

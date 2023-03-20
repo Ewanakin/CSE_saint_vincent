@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1> Créer une offre.</h1>
+    {{ form_start(permanentOfferType) }}
+        {{ form_row(permanentOfferType.name) }}
+        {{ form_row(permanentOfferType.price) }}
+        {{ form_row(permanentOfferType.nbPlaces) }}
+        {{ form_row(permanentOfferType.startDate) }}
+        {{ form_row(permanentOfferType.endDate) }}
+        {{ form_row(permanentOfferType.description) }}
+{#        {{ form_row(permanentOfferType.pictures) }}#}
+
+        <button type="submit" class="btn">Créer l'offre</button>
+    {{ form_end(permanentOfferType) }}
+{% endblock %}

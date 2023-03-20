@@ -1,0 +1,11 @@
+<div>
+    {% for offer in limitedOffer %}
+        <div>
+            {% for picture in offer.getPictures() %}
+                <img class="rounded" src="{{ picture[0].getLink() }}" alt="offer picture">
+            {% endfor %}
+            <h1>{{ offer.name }}</h1>
+            <p>{{ offer.description }}</p>
+        </div>
+    {% endfor %}
+</div>

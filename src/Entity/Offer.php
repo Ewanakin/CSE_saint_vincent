@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping\InheritanceType;
 #[ORM\Entity(repositoryClass: OfferRepository::class)]
 #[InheritanceType("JOINED")]
 #[DiscriminatorColumn(name:"discr", type:"string")]
-#[DiscriminatorMap(["permanantoffer"=> "PermanantOffer", "limitedoffer"=>"LimitedOffer"])]
+#[DiscriminatorMap(["permanantoffer"=> "PermanentOffer", "limitedoffer"=>"LimitedOffer"])]
 abstract class Offer
 {
     #[ORM\Id]
