@@ -4,7 +4,8 @@ namespace App\Form;
 
 use App\Entity\PermanentOffer;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,13 +15,16 @@ class PermanentOfferType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('price')
-            ->add('nbPlaces')
+            ->add('price', NumberType::class)
+            ->add('nbPlaces', NumberType::class)
             ->add('startDate')
             ->add('endDate')
             ->add('description')
-            ->add('pictures', FileType::class)
-
+            ->add('pictures', CollectionType::class, [
+                'entry_type' => OfferPictureType::class,
+                'entry_options' => ['label' => false],
+                'allow_add' => true,
+            ])
         ;
     }
 
