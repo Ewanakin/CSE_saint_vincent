@@ -3,7 +3,9 @@
 {% block title %}Hello PartnerController!{% endblock %}
 
 {% block body %}
-    {% for partner in partners %}
-        {{partner.name}}
-    {% endfor %}
+    <div style="background-color:dark;">
+        {% for partner in partners %}
+            {{partner.name}}
+        {% endfor %}
+    </div>
 {% endblock %}

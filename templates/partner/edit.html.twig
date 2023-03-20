@@ -3,7 +3,9 @@
 {% block title %}Hello PartnerController!{% endblock %}
 
 {% block body %}
-    {{ form_start(partnerForm) }}
-        <button type="submit">Ajouter</button>
-    {{ form_end(partnerForm) }}
+    <div style="bg-color: dark;">
+        {{ form_start(partnerForm) }}
+            <button type="submit">Ajouter</button>
+        {{ form_end(partnerForm) }}
+    </div>
 {% endblock %}
