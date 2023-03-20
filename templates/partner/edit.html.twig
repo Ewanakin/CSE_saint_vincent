@@ -3,8 +3,20 @@
 {% block title %}Hello PartnerController!{% endblock %}
 
 {% block body %}
-    <div style="bg-color: dark;">
+    <div style="background-color: #74992e;">
         {{ form_start(partnerForm) }}
+            {{ form_row(partnerForm.name) }}
+            {{ form_row(partnerForm.website) }}
+            {{ form_row(partnerForm.description) }}
+            {% for picture in partner.pictures %}
+                <div>
+                    <p>{{picture.name}}</p>
+                    <img src="{{picture.link}}">
+                    <a href="{{path('partner_picture_delete', {"partner": partner.id, "partnerPicture": picture.id})}}" >Supprimer</a>
+                </div>
+
+            {% endfor %}
+            <a href="{{path('partner_picture_add')}}">Ajouter une photo</a><br>
             <button type="submit">Ajouter</button>
         {{ form_end(partnerForm) }}
     </div>

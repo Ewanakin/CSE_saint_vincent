@@ -3,13 +3,11 @@
 namespace App\Form;
 
 use App\Entity\Partner;
-use App\Entity\PartnerPicture;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class PartnerType extends AbstractType
+class PartnertType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -17,6 +15,7 @@ class PartnerType extends AbstractType
             ->add('name')
             ->add('website')
             ->add('description')
+            ->add('picture')
         ;
     }
 

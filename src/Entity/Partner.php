@@ -25,11 +25,13 @@ class Partner
     #[ORM\Column(type: Types::TEXT)]
     private string $description;
 
-    #[ORM\Column(length: 255)]
-    private string $picture;
-
     #[ORM\OneToMany(mappedBy: 'partner', targetEntity: PartnerPicture::class)]
     private Collection $pictures;
+
+    public function __toString()
+    {
+        return $this->name;
+    }
 
     public function __construct()
     {
@@ -73,18 +75,6 @@ class Partner
     public function setDescription(string $description): self
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    public function getPicture(): string
-    {
-        return $this->picture;
-    }
-
-    public function setPicture(string $picture): self
-    {
-        $this->picture = $picture;
 
         return $this;
     }

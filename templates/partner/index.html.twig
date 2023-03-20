@@ -6,10 +6,12 @@
     <div style="background-color:dark;">
         {% for partner in partners %}
             <div>
-                {{partner.name}}
-                {{partner.website}}
-                {{partner.description}}
-                {{partner.name}}
+                <p>Nom : {{partner.name}}</p>
+                <p>Lien du site : <a href="{{partner.website}}">{{partner.website}}</a></p>
+                <p>Description : {{partner.description}}</p>
+                {% for picture in partner.pictures %}
+                    <img src="{{picture.link}}">
+                {% endfor %}
             </div>
         {% endfor %}
     </div>
