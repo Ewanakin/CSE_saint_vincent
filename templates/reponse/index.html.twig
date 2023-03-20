@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ReponseController!{% endblock %}
+
+{% block body %}
+    {% for reponse in reponses %}
+        {{reponse.reponse}}<br>
+        <a href="{{path('reponse_edit', {reponse: reponse.id})}}">Modifier</a>
+        <a href="{{path('reponse_delete', {reponse: reponse.id})}}">Supprimer</a>
+    {% endfor %}
+{% endblock %}
+

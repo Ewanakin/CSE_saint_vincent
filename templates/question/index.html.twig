@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello QuestionController!{% endblock %}
+
+{% block body %}
+    {% for question in questions %}
+        <div>
+            {{question.question}}<br>
+            <a href="{{path('question_edit', {question: question.id})}}">Modifier</a>
+            <a href="{{path('question_delete', {question: question.id})}}">Supprimer</a>
+        </div>
+    {% endfor %}
+{% endblock %}

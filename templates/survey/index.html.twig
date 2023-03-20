@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello SurveyController!{% endblock %}
+
+{% block body %}
+    {{survey.question}}
+    {{ form_start(surveyForm) }}
+        <button type="submit">Submit</button>
+    {{ form_end(surveyForm) }}
+{% endblock %}
