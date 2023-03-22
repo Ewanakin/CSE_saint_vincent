@@ -8,15 +8,7 @@
             {{ form_row(partnerForm.name) }}
             {{ form_row(partnerForm.website) }}
             {{ form_row(partnerForm.description) }}
-            {% for picture in partner.pictures %}
-                <div>
-                    <p>{{picture.name}}</p>
-                    <img src="{{picture.link}}">
-                    <a href="{{path('partner_picture_delete', {"partner": partner.id, "partnerPicture": picture.id})}}" >Supprimer</a>
-                </div>
-
-            {% endfor %}
-            <a href="{{path('partner_picture_add')}}">Ajouter une photo</a><br>
+            {{ form_row(partnerForm.link) }}
             <button type="submit">Ajouter</button>
         {{ form_end(partnerForm) }}
     </div>

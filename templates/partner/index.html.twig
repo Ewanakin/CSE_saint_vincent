@@ -9,9 +9,7 @@
                 <p>Nom : {{partner.name}}</p>
                 <p>Lien du site : <a href="{{partner.website}}">{{partner.website}}</a></p>
                 <p>Description : {{partner.description}}</p>
-                {% for picture in partner.pictures %}
-                    <img src="{{picture.link}}">
-                {% endfor %}
+                <img alt="photo patner" src="{{partner.link}}">
             </div>
         {% endfor %}
     </div>
