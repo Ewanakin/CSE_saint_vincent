@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\LimitedOffer;
+use App\Entity\Offer;
+use App\Entity\OfferPicture;
 use App\Entity\PermanentOffer;
 use App\Form\PermanentOfferType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -25,12 +27,15 @@ class OfferController extends AbstractController
     }
 
     #[Route('/offer/create', name: 'create_offer')]
-    public function createOffer(Request $request, EntityManagerInterface $manager): Response
+    public function createOffer(Request $request, EntityManagerInterface $manager, Offer $offer = null): Response
     {
-        $offer = new PermanentOffer();
-        $form = $this->createForm(PermanentOfferType::class);
-        $form->handleRequest($request);
+        if ($offer == null)
+        {
+            $offer = new PermanentOffer();
+        }
 
+        $form = $this->createForm(PermanentOfferType::class, $offer);
+        $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
             if ($form->isValid()) {

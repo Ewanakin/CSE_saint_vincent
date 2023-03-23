@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\PermanentOffer;
+use App\Form\Transformer\FileTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -11,6 +12,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PermanentOfferType extends AbstractType
 {
+    private $transformer;
+    public function __construct(FileTransformer $transformer)
+    {
+        $this->transformer = $transformer;
+    }
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -26,7 +32,9 @@ class PermanentOfferType extends AbstractType
                 'allow_add' => true,
             ])
         ;
+        $builder->get('pictures')->addModelTransformer($this->transformer);
     }
+
 
     public function configureOptions(OptionsResolver $resolver): void
     {

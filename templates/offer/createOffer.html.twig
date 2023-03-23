@@ -15,7 +15,7 @@
         data-prototype="{{ form_widget(permanentOfferType.pictures.vars.prototype)|e('html_attr') }}"
     >
         {% for picture in permanentOfferType.pictures %}
-            <li>{{ form_row(picture.picture) }}</li>
+            <li>{{ form_row(picture.pictureLink) }}</li>
         {% endfor %}
     </ul>
     <button type="button" class="add_item_link" data-collection-holder-class="tags">Add a tag</button>

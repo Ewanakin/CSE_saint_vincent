@@ -13,22 +13,22 @@ class OfferPictureType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+
         $builder
-            ->add('picture', FileType::class,[
+            ->add('pictureLink', FileType::class, [
                 'mapped' => false,
                 'required' => false,
                 'constraints' => [
-                new File([
-                    'extensions' => [
-                        'pdf',
-                        'jpg',
-                        'png',
-                    ],
-                    'extensionsMessage' => 'Veuillez choisir un fichier de type: pdf/jpg/png.'
-                ])
+                    new File([
+                        'extensions' => [
+                            'pdf',
+                            'jpg',
+                            'png',
+                        ],
+                        'extensionsMessage' => 'Veuillez choisir un fichier de type: pdf/jpg/png.'
+                    ])
                 ]
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
