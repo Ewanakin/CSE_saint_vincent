@@ -9,14 +9,13 @@
         {{ form_row(permanentOfferType.startDate) }}
         {{ form_row(permanentOfferType.endDate) }}
         {{ form_row(permanentOfferType.description) }}
-    {#        {{ form_row(permanentOfferType.pictures) }} #}
 
     <ul class="tags"
         data-index="{{ permanentOfferType.pictures|length > 0 ? permanentOfferType.pictures|last.vars.name + 1 : 0 }}"
         data-prototype="{{ form_widget(permanentOfferType.pictures.vars.prototype)|e('html_attr') }}"
     >
         {% for picture in permanentOfferType.pictures %}
-            <li>{{ form_row(picture.link) }}</li>
+            <li>{{ form_row(picture.picture) }}</li>
         {% endfor %}
     </ul>
     <button type="button" class="add_item_link" data-collection-holder-class="tags">Add a tag</button>

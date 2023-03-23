@@ -31,6 +31,7 @@ class OfferController extends AbstractController
         $form = $this->createForm(PermanentOfferType::class);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
                 $offer = $form->getData();
