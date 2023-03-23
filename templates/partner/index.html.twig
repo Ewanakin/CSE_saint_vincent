@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PartnerController!{% endblock %}
+
+{% block body %}
+    <div style="background-color:dark;">
+        {% for partner in partners %}
+            <div>
+                <p>Nom : {{partner.name}}</p>
+                <p>Lien du site : <a href="{{partner.website}}">{{partner.website}}</a></p>
+                <p>Description : {{partner.description}}</p>
+                <img alt="photo patner" src="{{partner.link}}">
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

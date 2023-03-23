@@ -26,14 +26,11 @@ class Partner
     private string $description;
 
     #[ORM\Column(length: 255)]
-    private string $picture;
+    private string $link;
 
-    #[ORM\OneToMany(mappedBy: 'partner', targetEntity: PartnerPicture::class)]
-    private Collection $pictures;
-
-    public function __construct()
+    public function __toString()
     {
-        $this->pictures = new ArrayCollection();
+        return $this->name;
     }
 
     public function getId(): int
@@ -77,45 +74,14 @@ class Partner
         return $this;
     }
 
-    public function getPicture(): string
+    public function getLink():string
     {
-        return $this->picture;
+        return $this->link;
     }
 
-    public function setPicture(string $picture): self
+    public function setLink(string $link):self
     {
-        $this->picture = $picture;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, PartnerPicture>
-     */
-    public function getPictures(): Collection
-    {
-        return $this->pictures;
-    }
-
-    public function addPicture(PartnerPicture $picture): self
-    {
-        if (!$this->pictures->contains($picture)) {
-            $this->pictures->add($picture);
-            $picture->setPartner($this);
-        }
-
-        return $this;
-    }
-
-    public function removePicture(PartnerPicture $picture): self
-    {
-        if ($this->pictures->removeElement($picture)) {
-            // set the owning side to null (unless already changed)
-            if ($picture->getPartner() === $this) {
-                $picture->setPartner(null);
-            }
-        }
-
+        $this->link = $link;
         return $this;
     }
 }

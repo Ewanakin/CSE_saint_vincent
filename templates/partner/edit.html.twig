@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PartnerController!{% endblock %}
+
+{% block body %}
+    <div style="background-color: #74992e;">
+        {{ form_start(partnerForm) }}
+            {{ form_row(partnerForm.name) }}
+            {{ form_row(partnerForm.website) }}
+            {{ form_row(partnerForm.description) }}
+            {{ form_row(partnerForm.link) }}
+            <button type="submit">Ajouter</button>
+        {{ form_end(partnerForm) }}
+    </div>
+{% endblock %}
