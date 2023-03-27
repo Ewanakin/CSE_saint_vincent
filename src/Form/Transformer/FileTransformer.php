@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\File\File;
 
 class FileTransformer implements DataTransformerInterface
 {
-    public function transform($link)
+    public function transform($link): ?File
     {
         return $link;
     }
