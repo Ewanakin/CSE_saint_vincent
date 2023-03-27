@@ -1,7 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    {% if app.request.attributes.get('_route') == 'create_offer'%}
     <h1> Créer une offre.</h1>
+    {% endif %}
+    {% if app.request.attributes.get('_route') == 'edit_offer'%}
+    <h1> Modifier l'offre.</h1>
+    {% endif %}
     {{ form_start(permanentOfferType) }}
         {{ form_row(permanentOfferType.name) }}
         {{ form_row(permanentOfferType.price) }}
@@ -9,7 +14,9 @@
         {{ form_row(permanentOfferType.startDate) }}
         {{ form_row(permanentOfferType.endDate) }}
         {{ form_row(permanentOfferType.description) }}
-
+        {% for picture in offer.pictures %}
+            <input name="picture{{ picture.id }}"value={{ picture.id }}>
+        {% endfor %}
     <ul class="tags"
         data-index="{{ permanentOfferType.pictures|length > 0 ? permanentOfferType.pictures|last.vars.name + 1 : 0 }}"
         data-prototype="{{ form_widget(permanentOfferType.pictures.vars.prototype)|e('html_attr') }}"
@@ -19,7 +26,12 @@
         {% endfor %}
     </ul>
     <button type="button" class="add_item_link" data-collection-holder-class="tags">Add a tag</button>
+    {% if app.request.attributes.get('_route') == 'create_offer'%}
     <button type="submit" class="btn">Créer l'offre</button>
+    {% endif %}
+    {% if app.request.attributes.get('_route') == 'edit_offer' %}
+        <button type="submit" class="btn">Modifier l'offre</button>
+    {% endif %}
     {{ form_end(permanentOfferType) }}
     <script>
         const addFormToCollection = (e) => {

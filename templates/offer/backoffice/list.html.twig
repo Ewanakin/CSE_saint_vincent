@@ -6,8 +6,8 @@
             <div class=" flex space-x-12 border-solid border-2 border-#384394">
                 <h3>{{ offer.name }}</h3>
                 <div class="space-x-2">
-                    <button type="button">Modifier</button>
-                    <a href="{{ path('remove_offer', {offer: offer.id}) }}">Supprimer l'offre</a>
+                    <a href="{{ path('edit_offer', {offer: offer.id}) }}">Modifier</a>
+                    <a href="{{ path('remove_offer', {offer: offer.id}) }}">Supprimer</a>
                 </div>
             </div>
         {% endfor %}

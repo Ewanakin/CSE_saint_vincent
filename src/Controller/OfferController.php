@@ -2,9 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\LimitedOffer;
 use App\Entity\Offer;
-use App\Entity\OfferPicture;
 use App\Entity\PermanentOffer;
 use App\Form\PermanentOfferType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -24,7 +22,8 @@ class OfferController extends AbstractController
         ]);
     }
 
-    #[Route('/offer/create', name: 'create_offer')]
+    #[Route('/admin/offer/create', name: 'create_offer')]
+    #[Route('/admin/offer/edit/{offer}', name: 'edit_offer')]
     public function createOffer(Request $request, EntityManagerInterface $manager, Offer $offer = null): Response
     {
         if ($offer == null)
@@ -38,6 +37,7 @@ class OfferController extends AbstractController
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
                 $offer = $form->getData();
+                $pictures = $form->get('');
                 $manager->persist($offer);
                 $manager->flush();
                 $this->addFlash('success', 'l\'offre a été créée');
@@ -46,21 +46,22 @@ class OfferController extends AbstractController
             }
         }
 
-        return $this->render('offer/backoffice/createOffer.html.twig', [
+        return $this->render('offer/backoffice/create.html.twig', [
+            'offer' => $offer,
             'permanentOfferType' => $form->createView(),
         ]);
     }
 
-    #[Route('offer/list', name: 'list_offer')]
+    #[Route('admin/offer/list', name: 'list_offer')]
     public function listOffer(EntityManagerInterface $manager): Response
     {
         $offers = $manager->getRepository(Offer::class)->findAll();
-        return $this->render('offer/backoffice/offerList.html.twig', [
+        return $this->render('offer/backoffice/list.html.twig', [
             'offers' => $offers,
         ]);
     }
 
-    #[Route('offer/remove/{offer}', name: 'remove_offer')]
+    #[Route('admin/offer/remove/{offer}', name: 'remove_offer')]
     public function removeOffer(EntityManagerInterface $em, Offer $offer)
     {
         $em->remove($offer);
