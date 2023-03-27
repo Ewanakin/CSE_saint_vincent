@@ -14,27 +14,15 @@ class Survey
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?int $clientReponse = null;
-
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date = null;
+
+    #[ORM\ManyToOne(inversedBy: 'surveys')]
+    private ?Reponse $clientResponse = null;
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getClientReponse(): ?int
-    {
-        return $this->clientReponse;
-    }
-
-    public function setClientReponse(int $clientReponse): self
-    {
-        $this->clientReponse = $clientReponse;
-
-        return $this;
     }
 
     public function getDate(): ?\DateTime
@@ -45,6 +33,18 @@ class Survey
     public function setDate(\DateTime $date): self
     {
         $this->date = $date;
+
+        return $this;
+    }
+
+    public function getClientResponse(): ?Reponse
+    {
+        return $this->clientResponse;
+    }
+
+    public function setClientResponse(?Reponse $clientResponse): self
+    {
+        $this->clientResponse = $clientResponse;
 
         return $this;
     }

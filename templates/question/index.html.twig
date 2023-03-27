@@ -8,6 +8,11 @@
             {{question.question}}<br>
             <a href="{{path('question_edit', {question: question.id})}}">Modifier</a>
             <a href="{{path('question_delete', {question: question.id})}}">Supprimer</a>
+            {% if question.activate == 1 %}
+                La question est déjà activée
+            {% else %}
+                <a href="{{path('question_activate', {question: question.id})}}">Activer</a>
+            {% endif %}
         </div>
     {% endfor %}
 {% endblock %}

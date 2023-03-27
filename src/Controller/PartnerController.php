@@ -25,8 +25,8 @@ class PartnerController extends AbstractController
         ]);
     }
 
-    #[Route('/partner/ajout', name: 'partner_add')]
-    #[Route('/partner/modification/{partner}', name: 'partner_edit')]
+    #[Route('/admin/partner/ajout', name: 'partner_add')]
+    #[Route('/admin/partner/modification/{partner}', name: 'partner_edit')]
     public function partnerEdit(EntityManagerInterface $em, Partner $partner = null, Request $request): Response
     {
         if($partner==null)
@@ -49,11 +49,41 @@ class PartnerController extends AbstractController
         ]);
     }
 
-    #[Route('/partner/supprimer/{partner}', name: 'partner_delete')]
+    #[Route('/admin/partner/supprimer/{partner}', name: 'partner_delete')]
     public function partnerDelete(EntityManagerInterface $em, Partner $partner): Response
     {
         $em->remove($partner);
         $em->flush();
         return $this->redirectToRoute("partner_list");
+    }
+
+    #[Route("/partner/picture/add", name:"partner_picture_add")]
+    public function partnerPictureAdd(EntityManagerInterface $em, Request $request, PartnerPicture $partnerPicture=null): Response
+    {
+        if($partnerPicture==null)
+        {
+            $partnerPicture = new PartnerPicture();
+        }
+        $formPartnerPicture = $this->createForm(PartnerPictureType::class, $partnerPicture);
+        $formPartnerPicture->handleRequest($request);
+        if($formPartnerPicture->isSubmitted() && $formPartnerPicture->isValid())
+        {
+            $partnerPicture = $formPartnerPicture->getData();
+            $em->persist($partnerPicture);
+            $em->flush();
+            return $this->redirectToRoute("partner_edit", ["partner"=>$partnerPicture->getPartner()->getId()]);
+        }
+        return $this->render('partner/picture/edit.html.twig', [
+            'partnerPictureForm' => $formPartnerPicture->createView(),
+            'partnerPicture' => $partnerPicture,
+        ]);
+    }
+
+    #[Route("/partner/picture/delete/{partner}/{partnerPicture}", name:"partner_picture_delete")]
+    public function partnerPictureDelete(EntityManagerInterface $em, Partner $partner, PartnerPicture $partnerPicture): Response
+    {
+        $em->remove($partnerPicture);
+        $em->flush();
+        return $this->redirectToRoute('partner_edit', array("partner"=> $partner->getId()));
     }
 }
