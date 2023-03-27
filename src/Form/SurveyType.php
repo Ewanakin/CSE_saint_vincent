@@ -29,7 +29,7 @@ class SurveyType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('clientReponse', EntityType::class, [
+            ->add('clientResponse', EntityType::class, [
                 "class" => Reponse::class,
                 "choices" => $this->reponseRepository->findBy(array("question"=>$options["reponseFromQuestion"]))
             ])
@@ -39,7 +39,7 @@ class SurveyType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => null,
+            'data_class' => Survey::class,
             'reponseFromQuestion' => null
         ]);
     }

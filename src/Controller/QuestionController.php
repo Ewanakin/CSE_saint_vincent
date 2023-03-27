@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class QuestionController extends AbstractController
 {
-    #[Route('/question/list', name: 'question_list')]
+    #[Route('/admin/question/list', name: 'question_list')]
     public function index(ManagerRegistry $manager): Response
     {
         $questions = $manager->getRepository(Question::class)->findAll();
@@ -22,8 +22,20 @@ class QuestionController extends AbstractController
         ]);
     }
 
-    #[Route('/question/add', name: 'question_add')]
-    #[Route('/question/edit/{question}', name: 'question_edit')]
+    #[Route('/admin/question/activate/{question}', name: 'question_activate')]
+    public function questionActivate(EntityManagerInterface $em, Question $question): Response
+    {
+        $disabledQuestion = $em->getRepository(Question::class)->findOneBy(array("activate"=>1));
+        $disabledQuestion->setActivate(0);
+        $em->persist($disabledQuestion);
+        $question->setActivate(1);
+        $em->persist($question);
+        $em->flush();
+        return $this->redirectToRoute('question_list');
+    }
+
+    #[Route('/admin/question/add', name: 'question_add')]
+    #[Route('/admin/question/edit/{question}', name: 'question_edit')]
     public function addQuestion(EntityManagerInterface $em, Request $request, Question $question=null): Response
     {
         if($question == null)
@@ -45,7 +57,7 @@ class QuestionController extends AbstractController
         ]);
     }
 
-    #[Route('/question/delete/{question}', name: 'question_delete')]
+    #[Route('/admin/question/delete/{question}', name: 'question_delete')]
     public function questionDelete(EntityManagerInterface $em, Question $question): Response
     {
         $em->remove($question);

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ReponseRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ReponseRepository::class)]
@@ -18,6 +20,14 @@ class Reponse
 
     #[ORM\ManyToOne(inversedBy: 'responses')]
     private ?Question $question = null;
+
+    #[ORM\OneToMany(mappedBy: 'clientResponse', targetEntity: Survey::class)]
+    private Collection $surveys;
+
+    public function __construct()
+    {
+        $this->surveys = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -51,5 +61,35 @@ class Reponse
     public function __toString()
     {
         return $this->reponse;
+    }
+
+    /**
+     * @return Collection<int, Survey>
+     */
+    public function getSurveys(): Collection
+    {
+        return $this->surveys;
+    }
+
+    public function addSurvey(Survey $survey): self
+    {
+        if (!$this->surveys->contains($survey)) {
+            $this->surveys->add($survey);
+            $survey->setClientResponse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSurvey(Survey $survey): self
+    {
+        if ($this->surveys->removeElement($survey)) {
+            // set the owning side to null (unless already changed)
+            if ($survey->getClientResponse() === $this) {
+                $survey->setClientResponse(null);
+            }
+        }
+
+        return $this;
     }
 }

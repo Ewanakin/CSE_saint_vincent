@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ReponseController extends AbstractController
 {
-    #[Route('/reponse/list', name: 'reponse_list')]
+    #[Route('/admin/reponse/list', name: 'reponse_list')]
     public function index(ManagerRegistry $manager): Response
     {
         $reponses = $manager->getRepository(Reponse::class)->findAll();
@@ -23,8 +23,8 @@ class ReponseController extends AbstractController
         ]);
     }
 
-    #[Route('/reponse/add', name: 'reponse_add')]
-    #[Route('/reponse/edit/{reponse}', name: 'reponse_edit')]
+    #[Route('/admin/reponse/add', name: 'reponse_add')]
+    #[Route('/admin/reponse/edit/{reponse}', name: 'reponse_edit')]
     public function reponseEdit(EntityManagerInterface $em, Request $request, Reponse $reponse=null): Response
     {
         if($reponse == null)
@@ -46,7 +46,7 @@ class ReponseController extends AbstractController
         ]);
     }
 
-    #[Route('/reponse/delete/{reponse}', name: 'reponse_delete')]
+    #[Route('/admin/reponse/delete/{reponse}', name: 'reponse_delete')]
     public function reponseDelete(EntityManagerInterface $em, Reponse $reponse): Response
     {
         $em->remove($reponse);
