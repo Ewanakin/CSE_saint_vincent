@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <h1>Liste des offres</h1>
+    <div>
+        {% for offer in offers %}
+            <div class=" flex space-x-12 border-solid border-2 border-#384394">
+                <h3>{{ offer.name }}</h3>
+                <div class="space-x-2">
+                    <button type="button">Modifier</button>
+                    <a href="{{ path('remove_offer', {offer: offer.id}) }}">Supprimer l'offre</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

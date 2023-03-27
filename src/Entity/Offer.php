@@ -40,7 +40,7 @@ abstract class Offer
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
-    #[ORM\OneToMany(mappedBy: 'offer', targetEntity: OfferPicture::class, cascade: ['persist'])]
+    #[ORM\OneToMany(mappedBy: 'offer', targetEntity: OfferPicture::class, cascade: ['persist', 'remove'])]
     private Collection $pictures;
 
     public function __construct()

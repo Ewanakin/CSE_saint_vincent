@@ -18,11 +18,9 @@ class OfferController extends AbstractController
     #[Route('/offer', name: 'show_offer')]
     public function show(EntityManagerInterface $manager): Response
     {
-        $permanentOffers = $manager->getRepository(PermanentOffer::class)->findAll();
-        $limitedOffers = $manager->getRepository(LimitedOffer::class)->findAll();
+        $offers = $manager->getRepository(Offer::class)->findAll();
         return $this->render('offer/index.html.twig', [
-            'limitedOffer' => $limitedOffers,
-            'permanentOffer' => $permanentOffers,
+            'offers' => $offers,
         ]);
     }
 
@@ -48,8 +46,25 @@ class OfferController extends AbstractController
             }
         }
 
-        return $this->render('offer/createOffer.html.twig', [
+        return $this->render('offer/backoffice/createOffer.html.twig', [
             'permanentOfferType' => $form->createView(),
         ]);
+    }
+
+    #[Route('offer/list', name: 'list_offer')]
+    public function listOffer(EntityManagerInterface $manager): Response
+    {
+        $offers = $manager->getRepository(Offer::class)->findAll();
+        return $this->render('offer/backoffice/offerList.html.twig', [
+            'offers' => $offers,
+        ]);
+    }
+
+    #[Route('offer/remove/{offer}', name: 'remove_offer')]
+    public function removeOffer(EntityManagerInterface $em, Offer $offer)
+    {
+        $em->remove($offer);
+        $em->flush();
+        return $this->redirectToRoute('list_offer');
     }
 }

@@ -1,11 +1,14 @@
-<div>
-    {% for offer in limitedOffer %}
-        <div>
-            {% for picture in offer.getPictures() %}
-                <img class="rounded" src="{{ picture[0].getLink() }}" alt="offer picture">
-            {% endfor %}
-            <h1>{{ offer.name }}</h1>
-            <p>{{ offer.description }}</p>
-        </div>
-    {% endfor %}
-</div>
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="">
+        {{ dump(offers) }}
+        {% for offer in offers %}
+            <div>
+                {% for picture in offer.pictures %}
+                    <img src="{{ picture.link }}">
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

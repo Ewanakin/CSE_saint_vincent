@@ -16,7 +16,7 @@ class OfferPicture
     #[ORM\Column(length: 255)]
     private ?string $link = null;
 
-    #[ORM\ManyToOne(inversedBy: 'pictures')]
+    #[ORM\ManyToOne(inversedBy: 'pictures', cascade:["persist"])]
     private ?Offer $offer = null;
 
     public function getId(): ?int
