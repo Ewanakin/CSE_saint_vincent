@@ -10,7 +10,7 @@ class FileTransformer implements DataTransformerInterface
 {
     public function transform($linkPicture)
     {
-        return $linkPicture;
+        return $linkPicture;        
     }
 
     public function reverseTransform($picture)
