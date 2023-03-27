@@ -37,8 +37,8 @@ class SurveyController extends AbstractController
         $surveyForm->handleRequest($request);
         if($surveyForm->isSubmitted() && $surveyForm->isValid())
         {
-            $date = new DateTime('now');
             $newSurvey = $surveyForm->getData();
+            $date = new DateTime('now');
             $newSurvey->setClientReponse($surveyForm->get("clientReponse")->getData()->getId());
             $newSurvey->setDate($date);
             $em->persist($newSurvey);
