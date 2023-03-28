@@ -3,10 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Offer;
+use App\Entity\OfferPicture;
 use App\Entity\PermanentOffer;
 use App\Form\PermanentOfferType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -26,8 +28,7 @@ class OfferController extends AbstractController
     #[Route('/admin/offer/edit/{offer}', name: 'edit_offer')]
     public function createOffer(Request $request, EntityManagerInterface $manager, Offer $offer = null): Response
     {
-        if ($offer == null)
-        {
+        if ($offer == null) {
             $offer = new PermanentOffer();
         }
 
@@ -37,10 +38,11 @@ class OfferController extends AbstractController
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
                 $offer = $form->getData();
-                $pictures = $form->get('');
                 $manager->persist($offer);
                 $manager->flush();
+                $this->redirectToRoute('list_offer');
                 $this->addFlash('success', 'l\'offre a été créée');
+                return $this->redirectToRoute('list_offer');
             } else {
                 $this->addFlash('error', 'Une erreur est survenue');
             }
@@ -67,5 +69,15 @@ class OfferController extends AbstractController
         $em->remove($offer);
         $em->flush();
         return $this->redirectToRoute('list_offer');
+    }
+
+    #[Route('admin/offer/remove/picture/{offerPicture}', name: 'remove_picture')]
+    public function removePicture(EntityManagerInterface $em, Filesystem $filesystem, OfferPicture $offerPicture)
+    {
+        $projectId = $offerPicture->getOffer()->getId();
+        $filesystem->remove($offerPicture->getLink());
+        $em->remove($offerPicture);
+        $em->flush();
+        return $this->redirectToRoute('edit_offer');
     }
 }

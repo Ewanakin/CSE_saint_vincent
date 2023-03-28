@@ -173,13 +173,13 @@ abstract class Offer
 
     public function checkDate(ExecutionContextInterface $context)
     {
-        $date = date('m-d-y');
+        $date = new \DateTime();
         if ($this->startDate > $this->endDate) {
             $context->buildViolation('La date de début ne peut pas être supérieur à la date de fin.')
                 ->atPath('startDate')
                 ->addViolation();
         }
-        if ($this->endDate->format('m-d-y') < $date) {
+        if ($this->endDate < $date) {
             $context->buildViolation('La date de fin ne peut pas être inférieur à la date actuelle.')
                 ->atPath('endDate')
                 ->addViolation();

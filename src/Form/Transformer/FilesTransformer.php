@@ -19,6 +19,7 @@ class FilesTransformer implements DataTransformerInterface
     {
         if(is_a($value, UploadedFile::class))
         {
+            dump($value);
             $file = $value->move('files/offer/pictures/', $value->getClientOriginalName());
             $offerPicture = new OfferPicture();
             $offerPicture->setLink($file->getPathname());
