@@ -10,10 +10,16 @@
         font-size: 2rem;
     }
 
-    .input-text {
-        border: 1px theme('color.primary');
-        background: black;
-        color: red;
+    input, textarea {
+        border: 1px solid theme('colors.primary') ;
+        color: theme('colors.primary');
+        border-radius: 5px;
+        margin-left: 0.5rem;
+    }
 
+    select{
+        background: transparent;
+        border: 1px solid theme('colors.primary');
+        border-radius: 5px;
     }
 }

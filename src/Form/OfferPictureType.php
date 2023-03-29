@@ -25,6 +25,7 @@ class OfferPictureType extends AbstractType
             ->add('pictureLink', FileType::class, [
                 'mapped' => false,
                 'required' => false,
+                'label' => "choisir votre image",
                 'constraints' => [
                     new File([
                         'extensions' => [
