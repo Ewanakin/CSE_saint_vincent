@@ -15,13 +15,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PermanentOfferType extends AbstractType
 {
-    private $transformer;
-    private $dt;
-    public function __construct(FilesTransformer $transformer)
-    {
-        $this->transformer = $transformer;
-        $this->dt = new \DateTime();
-    }
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -50,14 +43,7 @@ class PermanentOfferType extends AbstractType
             ])
             ->add('description', TextareaType::class, [
                 "label" => "description de l'offre :",
-            ])
-//            ->add('pictures', CollectionType::class, [
-//                'entry_type' => OfferPictureType::class,
-//                'entry_options' => ['label' => false],
-//                'allow_add' => true,
-//            ])
-        ;
-//        $builder->get('pictures')->addModelTransformer($this->transformer);
+            ]);
     }
 
 

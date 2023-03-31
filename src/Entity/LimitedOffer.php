@@ -9,10 +9,6 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: LimitedOfferRepository::class)]
 class LimitedOffer extends Offer
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $displayStartDate = null;
@@ -23,10 +19,6 @@ class LimitedOffer extends Offer
     #[ORM\Column]
     private ?int $orderNumber = null;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getDisplayStartDate(): ?\DateTimeInterface
     {

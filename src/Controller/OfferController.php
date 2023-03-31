@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\LimitedOffer;
 use App\Entity\Offer;
 use App\Entity\OfferPicture;
 use App\Entity\PermanentOffer;
+use App\Form\LimitedOfferType;
 use App\Form\OfferPictureType;
 use App\Form\PermanentOfferType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -13,6 +15,7 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use function PHPUnit\Framework\isType;
 
 class OfferController extends AbstractController
 {
@@ -41,9 +44,9 @@ class OfferController extends AbstractController
                 $offer = $form->getData();
                 $manager->persist($offer);
                 $manager->flush();
-                $this->redirectToRoute('list_offer');
                 $this->addFlash('success', 'l\'offre a été créée');
-                return $this->redirectToRoute('list_offer');
+                return $this->redirectToRoute('edit_offer', array('offer' => $offer->getID()));
+
             } else {
                 $this->addFlash('error', 'Une erreur est survenue');
             }
@@ -52,6 +55,36 @@ class OfferController extends AbstractController
         return $this->render('offer/backoffice/create.html.twig', [
             'offer' => $offer,
             'permanentOfferType' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/admin/offer/limited/create', name: 'create_limitedOffer')]
+    #[Route('/admin/offer/limited/edit/{offer}', name: 'edit_limitedOffer')]
+    public function createOfferLimited(Request $request, EntityManagerInterface $manager, Offer $offer = null): Response
+    {
+        if ($offer == null) {
+            $offer = new LimitedOffer();
+        }
+
+        $form = $this->createForm(LimitedOfferType::class, $offer);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                $offer = $form->getData();
+                $manager->persist($offer);
+                $manager->flush();
+                $this->redirectToRoute('list_offer');
+                $this->addFlash('success', 'l\'offre a été créée');
+                return $this->redirectToRoute('edit_limitedOffer', array('offer' => $offer->getID()));
+            } else {
+                $this->addFlash('error', 'Une erreur est survenue');
+            }
+        }
+
+        return $this->render('offer/backoffice/createLimited.html.twig', [
+            'offer' => $offer,
+            'limitedOfferType' => $form->createView(),
         ]);
     }
 
@@ -79,7 +112,12 @@ class OfferController extends AbstractController
         $filesystem->remove($offerPicture->getLink());
         $em->remove($offerPicture);
         $em->flush();
-        return $this->redirectToRoute('edit_offer', array('offer' => $offer->getId()));
+        if (is_a($offer, PermanentOffer::class)){
+            return $this->redirectToRoute('edit_offer', array('offer' => $offer->getId()));
+        }
+        if (is_a($offer, LimitedOffer::class)){
+            return $this->redirectToRoute('edit_limitedOffer', array('offer' => $offer->getId()));
+        }
     }
 
     #[Route('admin/offer/add/picture/{offer}', name: 'add_picture')]
@@ -94,7 +132,12 @@ class OfferController extends AbstractController
             $offerPicture->setLink($form->get("picture")->getData());
             $em->persist($offerPicture);
             $em->flush();
-            return $this->redirectToRoute('edit_offer', array('offer' => $offer->getId()));
+            if (is_a($offer, PermanentOffer::class)){
+                return $this->redirectToRoute('edit_offer', array('offer' => $offer->getId()));
+            }
+            if (is_a($offer, LimitedOffer::class)){
+                return $this->redirectToRoute('edit_limitedOffer', array('offer' => $offer->getId()));
+            }
         }
 
         return $this->render('form/offerPictureType.html.twig', [
