@@ -18,7 +18,7 @@ class UserController extends AbstractController
     public function index(ManagerRegistry $manager): Response
     {
         $users = $manager->getRepository(User::class)->findAll();
-        return $this->render('user/index.html.twig', [
+        return $this->render('user/list.html.twig', [
             'users' => $users,
         ]);
     }
@@ -56,5 +56,13 @@ class UserController extends AbstractController
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
+    }
+
+    #[Route('/admin/user/delete/{user}', name: "user_delete")]
+    public function userDelete(EntityManagerInterface $em, User $user): Response
+    {
+        $em->remove($user);
+        $em->flush();
+        return $this->redirectToRoute('user_list');
     }
 }

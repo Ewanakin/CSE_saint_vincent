@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello UserController!{% endblock %}
+
+{% block body %}
+    {% for user in users %}
+        <div>
+            {{user.prenom}}
+            {{user.nom}}
+            {{user.email}}
+            {% for role in user.roles %}
+                {{role}}
+            {% endfor %}
+            <a href="{{ path('user_edit', {user: user.id}) }}">Modifier</a>
+            <a href="{{ path('user_delete', {user: user.id}) }}">Supprimer</a>
+        </div>
+    {% endfor %}
+{% endblock %}
