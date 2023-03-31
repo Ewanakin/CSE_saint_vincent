@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello UserController!{% endblock %}
+
+{% block body %}
+    {{ form_start(newsletterForm) }}
+        {{ form_row(newsletterForm.email) }}
+        <button type="submit">S'inscrire</button>
+    {{ form_end(newsletterForm) }}
+{% endblock %}
