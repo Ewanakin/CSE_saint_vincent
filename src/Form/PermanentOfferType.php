@@ -37,27 +37,27 @@ class PermanentOfferType extends AbstractType
             ->add('startDate', DateType::class, [
                 "label" => "Date de début de l'offre :",
                 "format" => "dd MM y",
-                'years' => [date('Y')],
-                'months' => [date('m')],
-                'days' => [date('d')],
+                'years' => range(date('Y'), date('Y') + 10),
+                'months' => range(1, 12),
+                'days' => range(1,31),
             ])
             ->add('endDate', DateType::class, [
                 "label" => "Date de fin de l'offre :",
                 "format" => "dd MM y",
-                'years' => [date('Y')],
-                'months' => [date('m')],
-                'days' => [date('d')],
+                'years' => range(date('Y'), date('Y') + 10),
+                'months' => range(1, 12),
+                'days' => range(1,31),
             ])
             ->add('description', TextareaType::class, [
                 "label" => "description de l'offre :",
             ])
-            ->add('pictures', CollectionType::class, [
-                'entry_type' => OfferPictureType::class,
-                'entry_options' => ['label' => false],
-                'allow_add' => true,
-            ])
+//            ->add('pictures', CollectionType::class, [
+//                'entry_type' => OfferPictureType::class,
+//                'entry_options' => ['label' => false],
+//                'allow_add' => true,
+//            ])
         ;
-        $builder->get('pictures')->addModelTransformer($this->transformer);
+//        $builder->get('pictures')->addModelTransformer($this->transformer);
     }
 
 

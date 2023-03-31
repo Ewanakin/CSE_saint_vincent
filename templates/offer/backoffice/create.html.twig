@@ -1,77 +1,43 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {% if app.request.attributes.get('_route') == 'create_offer' %}
-        <h1 class="title mt-3">Créer une offre.</h1>
-    {% endif %}
-    {% if app.request.attributes.get('_route') == 'edit_offer' %}
-        <h1 class="title">Modifier l'offre.</h1>
-    {% endif %}
-    <div class="flex justify-center">
-        {{ form_start(permanentOfferType, {'attr': {'class': 'space-y-5'}}) }}
-        {{ form_row(permanentOfferType.name, {'attr': {'class': ''}}) }}
-        {{ form_row(permanentOfferType.price) }}
-        {{ form_row(permanentOfferType.nbPlaces) }}
-        {{ form_row(permanentOfferType.startDate, {'attr': {'class': 'flex justify-center space-x-4 text-lg'}}) }}
-        {{ form_row(permanentOfferType.endDate, {'attr': {'class': 'flex justify-center space-x-4 text-lg'}}) }}
-        {{ form_row(permanentOfferType.description) }}
-        <ul class="tags"
-            data-index="{{ permanentOfferType.pictures|length > 0 ? permanentOfferType.pictures|last.vars.name + 1 : 0 }}"
-            data-prototype="{{ form_widget(permanentOfferType.pictures.vars.prototype)|e('html_attr') }}"
-        >
-            {% if app.request.attributes.get('_route') == 'create_offer' %}
-                {% for picture in permanentOfferType.pictures %}
-                    <li>{{ form_row(picture.pictureLink) }}</li>
-                {% endfor %}
-            {% elseif app.request.get('_route') == 'edit_offer' %}
-                {% for picture in offer.pictures %}
-                    <p>{{ picture.link }}</p>
-                    {#                <a href="{{ path('remove_picture', {offerPicture: picture.id}) }}"> supprimer </a> #}
-                {% endfor %}
-            {% endif %}
-        </ul>
-        {% if offer.pictures|length < 4 %}
-            <button type="button" class="add_item_link" data-collection-holder-class="tags">Add a tag</button>
-        {% endif %}
+    <div x-data="{ open: false }" class="h-100 flex flex-col items-center h-100 mt-16"
+         x-bind:class="open ? '' : 'bg-white'">
         {% if app.request.attributes.get('_route') == 'create_offer' %}
-            <button type="submit" class="btn">Créer l'offre</button>
+            <h1 class="title">Créer une offre</h1>
         {% endif %}
         {% if app.request.attributes.get('_route') == 'edit_offer' %}
-            <button type="submit" class="btn">Modifier l'offre</button>
+            <h1 class="title">Modifier l'offre</h1>
         {% endif %}
-        {{ form_end(permanentOfferType) }}
+        <div class="flex flex-col justify-center mt-8">
+            {{ form_start(permanentOfferType, {'attr': {'class': 'space-y-5'}}) }}
+            {{ form_row(permanentOfferType.name, {'attr': {'class': ''}}) }}
+            {{ form_row(permanentOfferType.price) }}
+            {{ form_row(permanentOfferType.nbPlaces) }}
+            {{ form_row(permanentOfferType.startDate, {'attr': {'class': 'flex justify-center space-x-4 text-lg'}}) }}
+            {{ form_row(permanentOfferType.endDate, {'attr': {'class': 'flex justify-center space-x-4 text-lg'}}) }}
+            {{ form_row(permanentOfferType.description) }}
+
+            {% if app.request.attributes.get('_route') == 'create_offer' %}
+                <button type="submit" class="btn">Créer l'offre</button>
+            {% endif %}
+            {% if app.request.attributes.get('_route') == 'edit_offer' %}
+                <h4>Image de l'offre : </h4>
+                <div class="flex space-x-12">
+                    {% for picture in offer.pictures %}
+                        <div class="flex flex-col ">
+                            <img src="../../../{{ picture.link }}" class="w-36">
+                            <a href="{{ path('remove_picture', {'offerPicture':  picture.id}) }}">Supprimer</a>
+                        </div>
+                    {% endfor %}
+                </div>
+                <button type="submit" class="btn">Modifier l'offre</button>
+            {% endif %}
+            {{ form_end(permanentOfferType) }}
+            {% if app.request.attributes.get('_route') == 'edit_offer' and offer.pictures | length < 4 %}
+                {% include 'component/dropzone.html.twig' with {'offer': offer} %}
+            {% endif %}
+        </div>
     </div>
-    <script>
-        const addFormToCollection = (e) => {
-            const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
-
-            const item = document.createElement('li');
-
-            item.innerHTML = collectionHolder
-                .dataset
-                .prototype
-                .replace(
-                    /__name__/g,
-                    collectionHolder.dataset.index
-                );
-
-            collectionHolder.appendChild(item);
-
-            collectionHolder.dataset.index++;
-        };
-        const isInputMax = () => {
-            let inputs = document.querySelectorAll('li')
-            if (inputs.length > 3) {
-                document.querySelector('.add_item_link').style.display = "none";
-            }
-        }
-        document
-            .querySelectorAll('.add_item_link')
-            .forEach(btn => {
-                btn.addEventListener("click", addFormToCollection);
-                btn.addEventListener("click", isInputMax);
-            });
-
-    </script>
 {% endblock %}
 

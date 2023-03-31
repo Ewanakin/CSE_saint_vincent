@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Offer;
 use App\Entity\OfferPicture;
 use App\Entity\PermanentOffer;
+use App\Form\OfferPictureType;
 use App\Form\PermanentOfferType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -72,12 +73,32 @@ class OfferController extends AbstractController
     }
 
     #[Route('admin/offer/remove/picture/{offerPicture}', name: 'remove_picture')]
-    public function removePicture(EntityManagerInterface $em, Filesystem $filesystem, OfferPicture $offerPicture)
+    public function removePicture(EntityManagerInterface $em, Filesystem $filesystem, OfferPicture $offerPicture = null)
     {
-        $projectId = $offerPicture->getOffer()->getId();
+        $offer = $offerPicture->getOffer();
         $filesystem->remove($offerPicture->getLink());
         $em->remove($offerPicture);
         $em->flush();
-        return $this->redirectToRoute('edit_offer');
+        return $this->redirectToRoute('edit_offer', array('offer' => $offer->getId()));
+    }
+
+    #[Route('admin/offer/add/picture/{offer}', name: 'add_picture')]
+    public function addPicture(EntityManagerInterface $em,Request $request,  Offer $offer)
+    {
+        $offerPicture = new OfferPicture();
+        $form = $this->createForm(OfferPictureType::class, $offerPicture, array('action'=>$this->generateUrl('add_picture', array('offer' => $offer->getId()))));
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $offerPicture->setOffer($offer);
+            $offerPicture->setLink($form->get("picture")->getData());
+            $em->persist($offerPicture);
+            $em->flush();
+            return $this->redirectToRoute('edit_offer', array('offer' => $offer->getId()));
+        }
+
+        return $this->render('form/offerPictureType.html.twig', [
+           'offerPictureType' => $form->createView(),
+        ]);
     }
 }
