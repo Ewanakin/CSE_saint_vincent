@@ -51,7 +51,19 @@ class SurveyRepository extends ServiceEntityRepository
             ->setParameter('activate', 1)
             ->getQuery()
             ->getResult();
-        }
+    }
+
+    public function oldStats($value)
+    {
+        return $this->createQueryBuilder('s')
+            ->select('r.reponse, q.question, COUNT(r.id)')
+            ->innerJoin(Reponse::class, 'r', 'WITH', 's.clientResponse=r.id')
+            ->innerJoin(Question::class, 'q', 'WITH', 'q.id=r.question AND q.id=:question')
+            ->groupBy('s.clientResponse')
+            ->setParameter('question', $value)
+            ->getQuery()
+            ->getResult();
+    }
 
 
 //    /**

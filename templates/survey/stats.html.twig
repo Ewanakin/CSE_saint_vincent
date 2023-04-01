@@ -3,6 +3,7 @@
 {% block title %}Hello SurveyController!{% endblock %}
 
 {% block body %}
+    {{stats.0.question}}<br>
     {% for stat in stats %}
         La réponse : {{stat.reponse}} possède {{stat.1}} réponses<br>
     {% endfor %}

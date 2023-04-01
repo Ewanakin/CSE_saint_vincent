@@ -57,4 +57,13 @@ class SurveyController extends AbstractController
             'stats' => $stats,
         ]);
     }
+
+    #[Route('/admin/survey/stats/{question}', name:'old_survey_stats')]
+    public function oldSurveyStats(SurveyRepository $surveyRepo, Question $question)
+    {
+        $stats = $surveyRepo->oldStats($question->getId());
+        return $this->render('survey/stats.html.twig', [
+            'stats' => $stats,
+        ]);
+    }
 }
