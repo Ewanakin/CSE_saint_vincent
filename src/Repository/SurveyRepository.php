@@ -2,6 +2,8 @@
 
 namespace App\Repository;
 
+use App\Entity\Question;
+use App\Entity\Reponse;
 use App\Entity\Survey;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -38,6 +40,18 @@ class SurveyRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    public function activateStats()
+    {
+        return $this->createQueryBuilder('s')
+            ->select('r.reponse, COUNT(r.id)')
+            ->innerJoin(Reponse::class, 'r', 'WITH', 's.clientResponse=r.id')
+            ->innerJoin(Question::class, 'q', 'WITH', 'q.id=r.question AND q.activate=:activate')
+            ->groupBy('s.clientResponse')
+            ->setParameter('activate', 1)
+            ->getQuery()
+            ->getResult();
+        }
 
 
 //    /**
