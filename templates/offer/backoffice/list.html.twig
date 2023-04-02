@@ -1,15 +1,28 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    <h1>Liste des offres</h1>
-    <div>
-        {% for offer in offers %}
-            <div class=" flex space-x-12 border-solid border-2 border-#384394">
-                <h3>{{ offer.name }}</h3>
-                <div class="space-x-2">
-                    <a href="{{ path('edit_offer', {offer: offer.id}) }}">Modifier</a>
-                    <a href="{{ path('remove_offer', {offer: offer.id}) }}">Supprimer</a>
+    <div class="relative">
+        <h1 class="title">Liste des offres</h1>
+        <aside>
+            <a href="{{ path('list_offer', {offerType: 'permanent'}) }}" class="text-primary p-2 border">Offres
+                permanentes</a>
+            <a href="{{ path('list_offer', {offerType: 'limited'}) }}" class="text-primary p-2 border">Offres
+                limitées</a>
+        </aside>
+        <div class="mt-8">
+            {% for offer in offers %}
+                <div class=" flex space-x-12 border-solid border border-#384394">
+                    <h3>{{ offer.name }}</h3>
+                    <div class="space-x-2">
+                        {% if offerType is same as("permanent") %}
+                        <a href="{{ path('edit_offer', {offer: offer.id}) }}">Modifier</a>
+                        {% endif %}
+                        {% if offerType is same as("limited") %}
+                        <a href="{{ path('edit_limitedOffer', {offer: offer.id}) }}">Modifier</a>
+                        {% endif %}
+                        <a href="{{ path('remove_offer', {offer: offer.id}) }}">Supprimer</a>
+                    </div>
                 </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}
