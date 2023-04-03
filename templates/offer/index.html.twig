@@ -3,7 +3,7 @@
 {% block body %}
     <div class="flex flex-col mt-8 items-center space-y-12">
         {% for offer in offers %}
-            <div class="flex flex-col bg-third">
+            <div class="flex flex-col bg-third p-8">
                 <div class="flex space-x-8">
                     <h5 class="bg-primary text-[#fff] text-center rounded-lg px-2 py-1">{{ offer.isTypeOffer(offer) }}</h5>
                     <p class="text-primary">Du {{ offer.startDate|date("d/m/Y") }} au {{ offer.endDate|date("d/m/Y") }} - {{ offer.nbPlaces }} places minimum</p>
