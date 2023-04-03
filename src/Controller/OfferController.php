@@ -9,20 +9,31 @@ use App\Entity\PermanentOffer;
 use App\Form\LimitedOfferType;
 use App\Form\OfferPictureType;
 use App\Form\PermanentOfferType;
+use App\Repository\OfferRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use function PHPUnit\Framework\isType;
 
 class OfferController extends AbstractController
 {
     #[Route('/offer', name: 'show_offer')]
-    public function show(EntityManagerInterface $manager): Response
+    public function show(ManagerRegistry $manager, OfferRepository $offerRepository): Response
     {
-        $offers = $manager->getRepository(Offer::class)->findAll();
+        $offers = $offerRepository->orderedOffer();
+        foreach ($offers as $key => $offer) {
+            if (is_a($offer, LimitedOffer::class)) {
+                if ($offer->getOrderNumber() === 0
+                    || $offer->getDisplayStartDate() >= \DateTime::createFromFormat('Y-m-d', date('Y-m-d'))
+                    || $offer->getDisplayEndDate() <= \DateTime::createFromFormat('Y-m-d', date('Y-m-d'))) {
+                    unset($offers[$key]);
+                }
+            }
+        }
+
         return $this->render('offer/index.html.twig', [
             'offers' => $offers,
         ]);
@@ -92,10 +103,9 @@ class OfferController extends AbstractController
     public function listOffer(EntityManagerInterface $manager, string $offerType = null): Response
     {
         $offers = null;
-        if ($offerType === 'permanent'){
+        if ($offerType === 'permanent') {
             $offers = $manager->getRepository(PermanentOffer::class)->findAll();
-        }
-        elseif ($offerType === 'limited'){
+        } elseif ($offerType === 'limited') {
             $offers = $manager->getRepository(LimitedOffer::class)->findAll();
         }
         return $this->render('offer/backoffice/list.html.twig', [
@@ -119,36 +129,35 @@ class OfferController extends AbstractController
         $filesystem->remove($offerPicture->getLink());
         $em->remove($offerPicture);
         $em->flush();
-        if (is_a($offer, PermanentOffer::class)){
+        if (is_a($offer, PermanentOffer::class)) {
             return $this->redirectToRoute('edit_offer', array('offer' => $offer->getId()));
         }
-        if (is_a($offer, LimitedOffer::class)){
+        if (is_a($offer, LimitedOffer::class)) {
             return $this->redirectToRoute('edit_limitedOffer', array('offer' => $offer->getId()));
         }
     }
 
     #[Route('admin/offer/add/picture/{offer}', name: 'add_picture')]
-    public function addPicture(EntityManagerInterface $em,Request $request,  Offer $offer)
+    public function addPicture(EntityManagerInterface $em, Request $request, Offer $offer)
     {
         $offerPicture = new OfferPicture();
-        $form = $this->createForm(OfferPictureType::class, $offerPicture, array('action'=>$this->generateUrl('add_picture', array('offer' => $offer->getId()))));
+        $form = $this->createForm(OfferPictureType::class, $offerPicture, array('action' => $this->generateUrl('add_picture', array('offer' => $offer->getId()))));
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid())
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             $offerPicture->setOffer($offer);
             $offerPicture->setLink($form->get("picture")->getData());
             $em->persist($offerPicture);
             $em->flush();
-            if (is_a($offer, PermanentOffer::class)){
+            if (is_a($offer, PermanentOffer::class)) {
                 return $this->redirectToRoute('edit_offer', array('offer' => $offer->getId()));
             }
-            if (is_a($offer, LimitedOffer::class)){
+            if (is_a($offer, LimitedOffer::class)) {
                 return $this->redirectToRoute('edit_limitedOffer', array('offer' => $offer->getId()));
             }
         }
 
         return $this->render('form/offerPictureType.html.twig', [
-           'offerPictureType' => $form->createView(),
+            'offerPictureType' => $form->createView(),
         ]);
     }
 }

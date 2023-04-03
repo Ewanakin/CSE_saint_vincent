@@ -63,14 +63,14 @@ class LimitedOfferType extends AbstractType
                 'months' => range(1, 12),
                 'days' => range(1,31),
             ])->add('displayStartDate', DateType::class, [
-                "label" => "Date de début de l'offre :",
+                "label" => "Date de début d'affichage :",
                 "format" => "dd MM y",
                 'years' => range(date('Y'), date('Y') + 10),
                 'months' => range(1, 12),
                 'days' => range(1,31),
             ])
             ->add('displayEndDate', DateType::class, [
-                "label" => "Date de fin de l'offre :",
+                "label" => "Date de fin d'affichage :",
                 "format" => "dd MM y",
                 'years' => range(date('Y'), date('Y') + 10),
                 'months' => range(1, 12),

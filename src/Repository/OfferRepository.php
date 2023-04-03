@@ -2,7 +2,9 @@
 
 namespace App\Repository;
 
+use App\Entity\LimitedOffer;
 use App\Entity\Offer;
+use App\Entity\PermanentOffer;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -37,6 +39,16 @@ class OfferRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function orderedOffer()
+    {
+        return $this->createQueryBuilder('o')
+            ->leftJoin(LimitedOffer::class, 'l', 'WITH', 'o.id = l.id')
+            ->leftJoin(PermanentOffer::class, 'p', 'WITH', 'o.id = p.id')
+            ->orderBy('l.orderNumber', 'DESC')
+            ->getQuery()
+            ->getResult();
     }
 
 //    /**
