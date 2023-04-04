@@ -12,6 +12,7 @@ use App\Form\PermanentOfferType;
 use App\Repository\OfferRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,7 +22,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class OfferController extends AbstractController
 {
     #[Route('/offer', name: 'show_offer')]
-    public function show(ManagerRegistry $manager, OfferRepository $offerRepository): Response
+    public function show(Request $request, OfferRepository $offerRepository, PaginatorInterface $paginator): Response
     {
         $offers = $offerRepository->orderedOffer();
         foreach ($offers as $key => $offer) {
@@ -32,10 +33,16 @@ class OfferController extends AbstractController
                     unset($offers[$key]);
                 }
             }
+
+            $offersPaginate = $paginator->paginate(
+                $offers,
+                $request->query->getInt('page', 1),
+                3
+            );
         }
 
         return $this->render('offer/index.html.twig', [
-            'offers' => $offers,
+            'offers' => $offersPaginate,
         ]);
     }
 

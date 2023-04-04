@@ -3,27 +3,30 @@
 {% block body %}
     <div class="flex flex-col mt-8 items-center space-y-12">
         {% for offer in offers %}
-            <div class="flex flex-col bg-third p-8">
+            <div class="flex flex-col md:max-w-xl bg-third p-8 w-4/5 ">
                 <div class="flex space-x-8">
-                    <h5 class="bg-primary text-[#fff] text-center rounded-lg px-2 py-1">{{ offer.isTypeOffer(offer) }}</h5>
-                    <p class="text-primary">Du {{ offer.startDate|date("d/m/Y") }} au {{ offer.endDate|date("d/m/Y") }} - {{ offer.nbPlaces }} places minimum</p>
+                    <h5 class="bg-primary text-[#fff] text-center md:text-sm text-xs rounded-lg px-2 py-1">{{ offer.isTypeOffer(offer) }}</h5>
+                    <p class="text-primary md:text-lg text-sm">Du {{ offer.startDate|date("d/m/Y") }} au {{ offer.endDate|date("d/m/Y") }} - {{ offer.nbPlaces }} places</p>
                 </div>
-                <div class="flex mt-8">
+                <div class="flex mt-6">
                     {% if offer.pictures | length >= 1 %}
-                        <img class="w-28 rounded-full" src="{{ offer.pictures[0].link }}">
+                        <img class="md:w-28 w-16 object-scale-down rounded-full" src="{{ offer.pictures[0].link }}">
                     {% else %}
-                        <img class="w-28 rounded-full" src="{{ asset('files/placeholder.png') }}">
+                        <img class="md:w-28 w-16 object-scale-down rounded-full" src="{{ asset('files/placeholder.png') }}">
                     {% endif %}
-                    <div class="flex flex-col justify-center m-auto space-y-5">
-                        <h5 class="font-bold text-2xl text-primary underline text-center rounded-lg px-2 py-1">{{ offer.name }}</h5>
-                        <p class="text-primary">Prix : {{ offer.price }} €</p>
+                    <div class="flex flex-col justify-center box-border max-w-md m-auto ">
+                        <h5 class="font-bold md:text-xl text-md text-primary underline text-center rounded-lg px-2 py-1">{{ offer.name }}</h5>
+                        <div class="flex justify-center md:space-x-36 space-x-24 mt-5">
+                            <p class="text-primary md:text-lg text-sm ">Prix : {{ offer.price }} €</p>
+                            <a class="lg:text-md md:text-sm text-sm text-secondary pt-8" href="#">En savoir plus<span class="material-symbols-outlined">arrow_forward</span></a>
+                        </div>
                     </div>
-                    <a class="flex items-end text-secondary" href="#">En savoir plus<span class="material-symbols-outlined">arrow_forward</span></a>
                 </div>
                 <div>
 
                 </div>
             </div>
         {% endfor %}
+        {{ knp_pagination_render(offers) }}
     </div>
 {% endblock %}
