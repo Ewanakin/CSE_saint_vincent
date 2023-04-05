@@ -41,14 +41,27 @@ class OfferRepository extends ServiceEntityRepository
         }
     }
 
-    public function orderedOffer()
+    public function orderedOffer(string $type = null)
     {
-        return $this->createQueryBuilder('o')
-            ->leftJoin(LimitedOffer::class, 'l', 'WITH', 'o.id = l.id')
-            ->leftJoin(PermanentOffer::class, 'p', 'WITH', 'o.id = p.id')
-            ->orderBy('l.orderNumber', 'DESC')
-            ->getQuery()
-            ->getResult();
+        if ($type == 'limited') {
+            return $this->createQueryBuilder('o')
+                ->innerJoin(LimitedOffer::class, 'l', 'WITH', 'o.id = l.id')
+                ->orderBy('l.orderNumber', 'DESC')
+                ->getQuery()
+                ->getResult();
+        } elseif ($type == 'permanent') {
+            return $this->createQueryBuilder('o')
+                ->innerJoin(PermanentOffer::class, 'p', 'WITH', 'o.id = p.id')
+                ->getQuery()
+                ->getResult();
+        } else {
+            return $this->createQueryBuilder('o')
+                ->leftJoin(LimitedOffer::class, 'l', 'WITH', 'o.id = l.id')
+                ->leftJoin(PermanentOffer::class, 'p', 'WITH', 'o.id = p.id')
+                ->orderBy('l.orderNumber', 'DESC')
+                ->getQuery()
+                ->getResult();
+        }
     }
 
 //    /**

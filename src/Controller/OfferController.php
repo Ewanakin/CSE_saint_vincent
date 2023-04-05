@@ -11,7 +11,6 @@ use App\Form\OfferPictureType;
 use App\Form\PermanentOfferType;
 use App\Repository\OfferRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Persistence\ManagerRegistry;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
@@ -21,10 +20,10 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class OfferController extends AbstractController
 {
-    #[Route('/offer', name: 'show_offer')]
-    public function show(Request $request, OfferRepository $offerRepository, PaginatorInterface $paginator): Response
+    #[Route('/offers/{type}', name: 'show_offers')]
+    public function show(Request $request, OfferRepository $offerRepository, PaginatorInterface $paginator, string $type = null): Response
     {
-        $offers = $offerRepository->orderedOffer();
+        $offers = $offerRepository->orderedOffer($type);
         foreach ($offers as $key => $offer) {
             if (is_a($offer, LimitedOffer::class)) {
                 if ($offer->getOrderNumber() === 0
@@ -43,6 +42,18 @@ class OfferController extends AbstractController
 
         return $this->render('offer/index.html.twig', [
             'offers' => $offersPaginate,
+            'type' => $type,
+        ]);
+    }
+
+    #[Route('/offer/{offer}', name: 'show_offer')]
+    public function showOffer(Offer $offer)
+    {
+        if ($offer == null){
+            $this->redirectToRoute('show_offers');
+        }
+        return $this->render('offer/showOffer.html.twig',[
+            'offer' => $offer,
         ]);
     }
 

@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="flex flex-col justify-center items-center mt-5">
+        <div x-data="carousel" class="max-w-4xl  mx-auto relative">
+            {% for key, picture in offer.pictures %}
+                <div x-show="activeSlide == {{ key }}" class="flex m-auto sm:max-w-xl max-w-xs shadow-md rounded">
+                    <img src="../../{{ picture.link }}">
+                </div>
+            {% endfor %}
+            {% if offer.pictures | length > 1 %}
+                <div class="absolute inset-0 flex">
+                    <div class="flex items-center justify-start w-1/2 cursor-pointer" x-on:click="carouselBack">
+                    <span class="material-symbols-outlined rounded-full w-12 h-12 bg-[#fff] flex justify-center items-center -ml-6 z-3 text-primary border font-bold text-3xl hover:shadow-lg">
+                        arrow_back_ios
+                    </span>
+                    </div>
+                    <div class="flex items-center justify-end w-1/2 cursor-pointer" x-on:click="carouselForward">
+                    <span class="material-symbols-outlined rounded-full w-12 h-12 bg-[#fff] flex justify-center items-center -mr-6 z-3 text-primary border font-bold text-3xl hover:shadow-lg">
+                        arrow_forward_ios
+                    </span>
+                    </div>
+                </div>
+                <div class="absolute w-full flex items-center justify px-4">
+                    {% for key, picture in offer.pictures %}
+                        <span class="flex-1 w-4 h-2 mt-4 mx-2 mb0 rounded-full overflow-hidden transition-colors duration-200 ease-out hover:shadow-lg hover:opacity-50"
+                              :class="{
+                                'bg-secondary': activeSlide === {{ key }},
+                               'bg-primary' : activeSlide !== {{ key }},
+                          }"
+                              x-on:click="activeSlide = {{ key }}"
+                        >
+                    </span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="mt-12 space-y-8 flex flex-col justify-center">
+        <h1 class="title">{{ offer.name }}</h1>
+        <div class="flex justify-center ">
+            <ul class="list-disc text-primary space-y-5 md:-ml-52">
+                <li><h5 class="text-primary md:text-lg md:text-md text-lg">Du {{ offer.startDate|date("d/m/Y") }} au {{ offer.endDate|date("d/m/Y") }}</h5></li>
+                <li><h5 class="text-primary md:text-lg md:text-md text-lg">{{ offer.nbPlaces }} places</h5></li>
+                <li><h5 class="text-primary md:text-lg md:text-md text-lg">{{ offer.price }} €</h5></li>
+            </ul>
+        </div>
+        <div class="m-auto md:w-2/3 w-3/4">
+            <p class="text-center md:text-lg text-md box-border">{{ offer.description }}</p>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('carousel', () => ({
+                activeSlide: 0,
+                carouselBack() {
+                    this.activeSlide = this.activeSlide - 1;
+                    if (this.activeSlide < 0) {
+                        this.activeSlide = {{ offer.pictures.count }} -1
+                    }
+                },
+                carouselForward() {
+                    this.activeSlide = this.activeSlide + 1
+                    if (this.activeSlide > {{ offer.pictures.count }} -1) {
+                        this.activeSlide = 0
+                    }
+                },
+            }))
+        })
+
+    </script>
+{% endblock %}
