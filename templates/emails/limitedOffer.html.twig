@@ -1,0 +1,15 @@
+{% apply inline_css %}
+    <style>
+        h1{
+            color: #3b82f6;
+            font-weight: bold;
+        }
+        h5{
+            text-decoration: underline;
+        }
+    </style>
+    <h1>Nouvelle offre limité : {{ limitedOffer.name }}</h1>
+    <h4>Le CSE du lycée Saint-Vincent vous propose cette nouvelle offre au tarif de {{ limitedOffer.price }}. Il y'a {{ limitedOffer.nbPlaces }} places disponibles !</h4>
+    <h5> Description de l'offre</h5>
+    <p>{{ limitedOffer.description }}</p>
+{% endapply %}

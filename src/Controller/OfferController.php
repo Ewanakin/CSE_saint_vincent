@@ -3,19 +3,25 @@
 namespace App\Controller;
 
 use App\Entity\LimitedOffer;
+use App\Entity\Newsletter;
 use App\Entity\Offer;
 use App\Entity\OfferPicture;
 use App\Entity\PermanentOffer;
+use App\Events\LimitedOfferEvent;
 use App\Form\LimitedOfferType;
 use App\Form\OfferPictureType;
 use App\Form\PermanentOfferType;
+use App\Listeners\LimitedOfferListener;
 use App\Repository\OfferRepository;
+use App\Service\Mailer;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class OfferController extends AbstractController
@@ -89,12 +95,14 @@ class OfferController extends AbstractController
 
     #[Route('/admin/offer/limited/create', name: 'create_limitedOffer')]
     #[Route('/admin/offer/limited/edit/{offer}', name: 'edit_limitedOffer')]
-    public function createOfferLimited(Request $request, EntityManagerInterface $manager, Offer $offer = null): Response
+    public function createOfferLimited(Request $request, EntityManagerInterface $manager,MailerInterface $mailerInterface, Offer $offer = null): Response
     {
         if ($offer == null) {
             $offer = new LimitedOffer();
         }
-
+        $newsletters = $manager->getRepository(Newsletter::class)->findAll();
+        $dispatcher = new EventDispatcher();
+        $listener = new LimitedOfferListener();
         $form = $this->createForm(LimitedOfferType::class, $offer);
         $form->handleRequest($request);
 
@@ -103,6 +111,8 @@ class OfferController extends AbstractController
                 $offer = $form->getData();
                 $manager->persist($offer);
                 $manager->flush();
+                $dispatcher->addListener('limited.offer.event', array($listener, 'onLimitedOfferEvent'));
+                $dispatcher->dispatch(new LimitedOfferEvent($offer, $newsletters, $mailerInterface), LimitedOfferEvent::NAME);
                 $this->redirectToRoute('list_offer');
                 $this->addFlash('success', 'l\'offre a été créée');
                 return $this->redirectToRoute('edit_limitedOffer', array('offer' => $offer->getID()));
@@ -121,11 +131,12 @@ class OfferController extends AbstractController
     public function listOffer(EntityManagerInterface $manager, string $offerType = null): Response
     {
         $offers = null;
-        if ($offerType === 'permanent') {
+        if ($offerType === 'permanent' || $offerType === null) {
             $offers = $manager->getRepository(PermanentOffer::class)->findAll();
         } elseif ($offerType === 'limited') {
             $offers = $manager->getRepository(LimitedOffer::class)->findAll();
         }
+
         return $this->render('offer/backoffice/list.html.twig', [
             'offers' => $offers,
             'offerType' => $offerType
