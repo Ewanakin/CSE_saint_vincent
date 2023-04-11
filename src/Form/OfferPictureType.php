@@ -23,7 +23,7 @@ class OfferPictureType extends AbstractType
         $builder
             ->add('picture', FileType::class, [
                 'mapped' => false,
-                'required' => false,
+                'required' => true,
                 'label' => "choisir votre image",
                 'constraints' => [
                     new File([
