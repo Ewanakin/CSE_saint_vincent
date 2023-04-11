@@ -13,7 +13,6 @@ use App\Form\OfferPictureType;
 use App\Form\PermanentOfferType;
 use App\Listeners\LimitedOfferListener;
 use App\Repository\OfferRepository;
-use App\Service\Mailer;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

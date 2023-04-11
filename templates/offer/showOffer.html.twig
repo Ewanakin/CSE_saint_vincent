@@ -1,6 +1,9 @@
 {% extends 'base.html.twig' %}
 {% block body %}
     <div class="flex flex-col justify-center items-center mt-5">
+        <div class="absolute lg:top-16 lg:left-16 lg:text-xl top-2 left-2 text-md hover:font-bold hover:ease-in duration-200">
+            <a href="{{ path('show_offers')}}" class="text-primary flex justify-center"><span class="material-symbols-outlined text-md lg:text-2xl">arrow_back</span> Retour à la liste</a>
+        </div>
         <div x-data="carousel" class="max-w-4xl  mx-auto relative">
             {% for key, picture in offer.pictures %}
                 <div x-show="activeSlide == {{ key }}" class="flex m-auto sm:max-w-xl max-w-xs shadow-md rounded">
