@@ -3,13 +3,13 @@
 {% block title %}Hello PartnerController!{% endblock %}
 
 {% block body %}
-    <div class="bg-#74992e">
+    <div class="flex flex-col items-center">
         {{ form_start(partnerForm) }}
             {{ form_row(partnerForm.name) }}
             {{ form_row(partnerForm.website) }}
             {{ form_row(partnerForm.description) }}
             {{ form_row(partnerForm.link) }}
-            <button type="submit">Ajouter</button>
+            <button type="submit">Ajouter un partner</button>
         {{ form_end(partnerForm) }}
     </div>
 {% endblock %}
