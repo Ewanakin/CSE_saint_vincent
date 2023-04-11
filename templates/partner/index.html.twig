@@ -6,17 +6,19 @@
     <div class="mt-10 space-y-22 w-3/5 box-border">
         {% for partner in partners %}
         <div class="relative mt-16">
-            <div class="absolute -top-16 flex flex-col items-center">
+            <div class="absolute left-36 -top-16 flex flex-col items-center">
                 <img class="rounded-full object-scale-down h-20 w-50 ml-12" alt="photo patner" src="{{partner.link}}">
             </div>
-            <div class="flex">
-                <div class="bg-[#A9A9A9] w-full flex justify-center">
-                    <h4 class="ml-4">Nom : {{partner.name}}</h4>
-                </div>
+            <div class="flex bg-primary justify-center rounded-t-full">
+                <h4 class="text-[#ffffff] -ml-40">Nom : {{partner.name}}</h4>
             </div>
-            <div class="bg-[#A9A9A9]">
-                <p>Lien du site : <a href="{{partner.website}}">{{partner.website}}</a></p>
-                <p>Description : {{partner.description}}</p>
+            <div class="bg-third rounded-b-full flex flex-col items-center">
+                <div>
+                    <p class="box-border text-[#ffffff]">Lien du site : <a href="{{partner.website}}">{{partner.website}}</a></p>
+                </div>
+                <div>
+                    <p class="box-border text-[#ffffff]">Description : {{partner.description}}</p>
+                </div>
             </div>
         </div>
         {% endfor %}
