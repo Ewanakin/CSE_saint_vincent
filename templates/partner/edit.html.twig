@@ -3,7 +3,7 @@
 {% block title %}Hello PartnerController!{% endblock %}
 
 {% block body %}
-    <div style="background-color: #74992e;">
+    <div>
         {{ form_start(partnerForm) }}
             {{ form_row(partnerForm.name) }}
             {{ form_row(partnerForm.website) }}
@@ -12,7 +12,7 @@
                 <div>
                     <p>{{picture.name}}</p>
                     <img src="{{picture.link}}">
-                    <a href="{{path('partner_picture_delete', {"partner": partner.id, "partnerPicture": picture.id})}}" >Supprimer</a>
+                    <a href="{{path('partner_picture_delete', {"partner": partner.id, "partnerPicture": picture.id})}}">Supprimer</a>
                 </div>
 
             {% endfor %}
