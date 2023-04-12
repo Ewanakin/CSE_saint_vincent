@@ -2,7 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\AboutUs;
+use App\Form\AboutType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -13,6 +17,41 @@ class AboutController extends AbstractController
     {
         return $this->render('about/index.html.twig', [
             'controller_name' => 'AboutController',
+        ]);
+    }
+
+    #[Route('/admin/about/create', name: 'create_about')]
+    #[Route('//admin/about/edit/{aboutUs}', name: 'edit_about')]
+    public function createOffer(Request $request, EntityManagerInterface $manager, AboutUs $aboutUs = null): Response
+    {
+        if ($aboutUs == null){
+            $aboutUs = new AboutUs();
+        }
+
+        $form = $this->createForm(AboutType::class, $aboutUs);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            $aboutUs = $form->getData();
+            $manager->persist($aboutUs);
+            $manager->flush();
+            $this->addFlash('success', 'l\'offre a été créée');
+            $this->redirectToRoute('app_about');
+        }
+
+        return $this->render('about/backoffice/create.html.twig',[
+            'aboutUs' => $aboutUs,
+            'aboutUsType' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/admin/about/list', name: 'list_about')]
+    public function listAboutUs(EntityManagerInterface $em)
+    {
+        $aboutUs = $em->getRepository(AboutUs::class)->findBy(array(), null, '1');
+
+        return $this->render('about/backoffice/list.html.twig', [
+            'aboutUs' => $aboutUs,
         ]);
     }
 }

@@ -15,12 +15,13 @@ class AboutType extends AbstractType
     {
         $builder
             ->add('rules', TextareaType::class, [
-                'label' => 'Règlement du CSE',
-                'required'
+                'label' => 'Règlement du CSE : ',
+                'required' => true,
+                'attr' => array('cols' => '45', 'rows' => '5', 'class' => 'flex flex-col')
             ])
             ->add('email', EmailType::class, [
-                'label' => 'Email du CSE',
-                'required'
+                'label' => 'Email du CSE : ',
+                'required' => true,
             ]);
     }
     public function configureOptions(OptionsResolver $resolver): void

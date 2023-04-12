@@ -26,11 +26,11 @@ class MemberType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'label' => 'Prenom du membre',
-                'required'
+                'required' => true,
             ])
             ->add('firstname', TextType::class, [
                 'label' => 'Nom du membre',
-                'required'
+                'required' => true,
             ])
             ->add('picture', FileType::class, [
                 'mapped' => false,
