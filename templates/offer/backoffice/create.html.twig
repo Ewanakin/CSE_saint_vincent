@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div x-data="{ open: false }" class="h-100 flex flex-col items-center h-100 mt-16"
+         x-bind:class="open ? '' : 'bg-white'">
+        <div class="absolute lg:top-16 lg:left-16 lg:text-xl top-2 left-2 text-md hover:font-bold hover:ease-in duration-200">
+            <a href="{{ path('list_offer', {'offerType': 'limited'}) }}" class="text-primary flex justify-center"><span class="material-symbols-outlined text-md lg:text-2xl">arrow_back</span> Retour à la liste</a>
+        </div>
+        {% if app.request.attributes.get('_route') == 'create_offer' %}
+            <h1 class="title">Créer une offre</h1>
+        {% endif %}
+        {% if app.request.attributes.get('_route') == 'edit_offer' %}
+            <h1 class="title">Modifier l'offre</h1>
+        {% endif %}
+        <div class="flex flex-col justify-center mt-8">
+            {{ form_start(permanentOfferType, {'attr': {'class': 'space-y-5'}}) }}
+            {{ form_row(permanentOfferType.name, {'attr': {'class': ''}}) }}
+            {{ form_row(permanentOfferType.price) }}
+            {{ form_row(permanentOfferType.nbPlaces) }}
+            {{ form_row(permanentOfferType.startDate, {'attr': {'class': 'flex justify-center space-x-4 text-lg'}}) }}
+            {{ form_row(permanentOfferType.endDate, {'attr': {'class': 'flex justify-center space-x-4 text-lg'}}) }}
+            {{ form_row(permanentOfferType.description) }}
+
+            {% if app.request.attributes.get('_route') == 'create_offer' %}
+                <button type="submit" class="btn">Créer l'offre</button>
+            {% endif %}
+            {% if app.request.attributes.get('_route') == 'edit_offer' %}
+                <h4>Image de l'offre : </h4>
+                <div class="flex space-x-12">
+                    {% for picture in offer.pictures %}
+                        <div class="flex flex-col ">
+                            <img src="../../../{{ picture.link }}" class="w-36">
+                            <a href="{{ path('remove_picture', {'offerPicture':  picture.id}) }}">Supprimer</a>
+                        </div>
+                    {% endfor %}
+                </div>
+                <button type="submit" class="btn">Modifier l'offre</button>
+            {% endif %}
+            {{ form_end(permanentOfferType) }}
+            {% if app.request.attributes.get('_route') == 'edit_offer' and offer.pictures | length < 4 %}
+                {% include 'component/dropzone.html.twig' with {'offer': offer} %}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+

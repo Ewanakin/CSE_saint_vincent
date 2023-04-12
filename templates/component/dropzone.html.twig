@@ -1,0 +1,11 @@
+<div>
+    <button type="button" x-on:click="open = ! open">Ajouter une image</button>
+    <div x-show="open" class="bg-black_transparent flex justify-center items-center h-screen absolute w-full inset-x-0 top-0 left-50 z-50 overflow-y-auto overflow-y-hidden">
+        <div class="w-2/4 h-auto bg-[#fff] border-2 border-primary rounded">
+            <div class="">
+                <button type="button" x-on:click="open = ! open" class="justify-end">Fermer</button>
+                {{ render(controller("App\\Controller\\OfferController::addPicture", {"offer": offer.id})) }}
+            </div>
+        </div>
+    </div>
+</div>

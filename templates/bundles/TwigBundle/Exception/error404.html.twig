@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div>
+        <div class="bg-primary h-44 flex justify-center"> <img class="py-2" src="{{ asset('files/placeholder.png') }}"></div>
+        <div class="pl-12 space-y-12">
+            <h1 class="text-7xl mt-12 text-error font-bold underline">Page non trouvé - 404</h1>
+            <h5 class="text-xl mb-3">La page recherchée n'a pas été trouvé.</h5>
+            <a href="{{ path('app_homepage') }}" class="flex w-fit text-primary border p-2 hover:text-[#fff] rounded hover:bg-primary" >Retour à l'accueil</a>
+        </div>
+    </div>
+{% endblock %}

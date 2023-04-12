@@ -1,3 +1,38 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@layer components {
+    .title {
+        color: theme('colors.primary');
+        text-align: center;
+        font-size: 2rem;
+        text-decoration: underline;
+    }
+
+    h4{
+        font-size: 1.1rem;
+        text-decoration: underline;
+        color: theme('colors.primary');
+    }
+
+    label{
+        font-size: 1rem;
+    }
+
+
+    input, textarea {
+        border: 1px solid theme('colors.primary') ;
+        color: theme('colors.primary');
+        border-radius: 5px;
+        margin-left: 0.5rem;
+    }
+
+    select{
+        background: transparent;
+        border: 1px solid theme('colors.primary');
+        border-radius: 5px;
+        margin-left: 0.5rem;
+    }
+}

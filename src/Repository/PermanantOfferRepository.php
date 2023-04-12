@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\PermanantOffer;
+use App\Entity\PermanentOffer;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<PermanantOffer>
+ * @extends ServiceEntityRepository<PermanentOffer>
  *
- * @method PermanantOffer|null find($id, $lockMode = null, $lockVersion = null)
- * @method PermanantOffer|null findOneBy(array $criteria, array $orderBy = null)
- * @method PermanantOffer[]    findAll()
- * @method PermanantOffer[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method PermanentOffer|null find($id, $lockMode = null, $lockVersion = null)
+ * @method PermanentOffer|null findOneBy(array $criteria, array $orderBy = null)
+ * @method PermanentOffer[]    findAll()
+ * @method PermanentOffer[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class PermanantOfferRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, PermanantOffer::class);
+        parent::__construct($registry, PermanentOffer::class);
     }
 
-    public function save(PermanantOffer $entity, bool $flush = false): void
+    public function save(PermanentOffer $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class PermanantOfferRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(PermanantOffer $entity, bool $flush = false): void
+    public function remove(PermanentOffer $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class PermanantOfferRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return PermanantOffer[] Returns an array of PermanantOffer objects
+//     * @return PermanentOffer[] Returns an array of PermanentOffer objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class PermanantOfferRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?PermanantOffer
+//    public function findOneBySomeField($value): ?PermanentOffer
 //    {
 //        return $this->createQueryBuilder('p')
 //            ->andWhere('p.exampleField = :val')

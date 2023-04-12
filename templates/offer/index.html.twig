@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<aside class="flex justify-center mt-5 space-x-2" x-data="{param: '{{ type }}' }">
+    <a href="{{ path('show_offers') }}" class="text-primary p-2 border hover:text-[#fff] hover:bg-primary" :class="{'bg-primary !text-[#fff]': param == ''}">Toutes</a>
+    <a href="{{ path('show_offers', {type: 'permanent'}) }}" class="text-primary p-2 border hover:text-[#fff] hover:bg-primary" :class="{'!text-[#fff] bg-primary ': param == 'permanent' }">Offres permanentes</a>
+    <a href="{{ path('show_offers', {type: 'limited'}) }}" class="text-primary p-2 border hover:text-[#fff] hover:bg-primary" :class="{'bg-primary !text-[#fff]': param == 'limited' }">Offres limitées</a>
+</aside>
+    <div class="flex flex-col mt-8 items-center space-y-12">
+        {% for offer in offers %}
+            <div class="flex flex-col md:max-w-xl bg-third p-8 w-4/5 ">
+                <div class="flex space-x-8">
+                    <h5 class="bg-primary text-[#fff] text-center md:text-sm text-xs rounded-lg px-2 py-1">{{ offer.isTypeOffer(offer) }}</h5>
+                    <p class="text-primary md:text-lg text-sm">Du {{ offer.startDate|date("d/m/Y") }} au {{ offer.endDate|date("d/m/Y") }} - {{ offer.nbPlaces }} places</p>
+                </div>
+                <div class="flex mt-6">
+                    {% if offer.pictures | length >= 1 %}
+                        <img class="md:w-28 w-16 object-scale-down rounded-full" src="../../{{ offer.pictures[0].link }}">
+                    {% else %}
+                        <img class="md:w-28 w-16 object-scale-down rounded-full" src="{{ asset('files/placeholder.png') }}">
+                    {% endif %}
+                    <div class="flex flex-col justify-center box-border max-w-md m-auto ">
+                        <h5 class="font-bold md:text-xl text-md text-primary underline text-center rounded-lg px-2 py-1">{{ offer.name }}</h5>
+                        <div class="flex justify-center md:space-x-36 space-x-24 mt-5">
+                            <p class="text-primary md:text-lg text-sm ">Prix : {{ offer.price }} €</p>
+                            <a class="flex lg:text-md md:text-sm text-sm text-secondary pt-8" href="{{ path('show_offer', {'offer': offer.id}) }}">En savoir plus<span class="material-symbols-outlined">arrow_forward</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        {{ knp_pagination_render(offers) }}
+    </div>
+{% endblock %}
