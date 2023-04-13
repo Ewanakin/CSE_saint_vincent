@@ -23,7 +23,7 @@ class Member
     #[ORM\Column(length: 255)]
     private ?string $picture = null;
 
-    #[ORM\ManyToOne(cascade: ['persist', 'remove'], inversedBy: 'members')]
+    #[ORM\ManyToOne(cascade: ['persist'], inversedBy: 'members')]
     private ?AboutUs $aboutUs = null;
 
     public function getId(): ?int

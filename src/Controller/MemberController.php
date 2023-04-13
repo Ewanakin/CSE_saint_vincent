@@ -39,4 +39,22 @@ class MemberController extends AbstractController
             'memberType' => $form->createView(),
         ]);
     }
+
+    #[Route('/admin/about/member/list', name: 'list_members')]
+    public function listMembers(EntityManagerInterface $em): Response
+    {
+        $members = $em->getRepository(Member::class)->findAll();
+
+        return $this->render('about/backoffice/member/list.html.twig',[
+           'members' => $members,
+        ]);
+    }
+
+    #[Route('/admin/about/member/remove/{member}', name: 'remove_member')]
+    public function removeMember(EntityManagerInterface $em, Member $member)
+    {
+        $em->remove($member);
+        $em->flush();
+        return $this->redirectToRoute('list_members');
+    }
 }
