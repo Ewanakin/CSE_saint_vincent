@@ -166,7 +166,7 @@ class OfferController extends AbstractController
     }
 
     #[Route('admin/offer/add/picture/{offer}', name: 'add_picture')]
-    public function addPicture(EntityManagerInterface $em, Request $request, Offer $offer)
+    public function addPicture(EntityManagerInterface $em, Request $request, Offer $offer): Response
     {
         $offerPicture = new OfferPicture();
         $form = $this->createForm(OfferPictureType::class, $offerPicture, array('action' => $this->generateUrl('add_picture', array('offer' => $offer->getId()))));

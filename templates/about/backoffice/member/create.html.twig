@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="h-100 flex flex-col items-center h-100 mt-16">
+        <div class="absolute lg:top-16 lg:left-16 lg:text-xl top-2 left-2 text-md hover:font-bold hover:ease-in duration-200">
+            <a href="{{ path('list_about') }}" class="text-primary flex justify-center"><span class="material-symbols-outlined text-md lg:text-2xl">arrow_back</span> Retour à la liste</a>
+        </div>
+        {% if app.request.attributes.get('_route') == 'create_member' %}
+            <h1 class="title">Ajouter le membre</h1>
+        {% endif %}
+        {% if app.request.attributes.get('_route') == 'edit_member' %}
+            <h1 class="title">Modifier le membre</h1>
+        {% endif %}
+        <div class="flex flex-col justify-center mt-8">
+            {{ form_start(memberType, {'attr': {'class': 'space-y-5'}}) }}
+            {{ form_row(memberType.firstname) }}
+            {{ form_row(memberType.name) }}
+            {{ form_row(memberType.picture) }}
+            {% if app.request.attributes.get('_route') == 'create_member' %}
+                <button type="submit" class="btn">Ajouter un membre</button>
+            {% endif %}
+            {% if app.request.attributes.get('_route') == 'edit_member' %}
+                <button type="submit" class="btn">Modifier le membre</button>
+            {% endif %}
+            {{ form_end(memberType) }}
+        </div>
+    </div>
+{% endblock %}

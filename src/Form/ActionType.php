@@ -16,6 +16,7 @@ class ActionType extends AbstractType
             ->add('action', TextareaType::class, [
                 'label' => 'Action du CSE',
                 'required' => true,
+                'attr' => array('cols' => '45', 'rows' => '5', 'class' => 'flex flex-col')
             ]);
     }
     public function configureOptions(OptionsResolver $resolver)

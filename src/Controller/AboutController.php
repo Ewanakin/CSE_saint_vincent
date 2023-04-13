@@ -21,34 +21,35 @@ class AboutController extends AbstractController
     }
 
     #[Route('/admin/about/create', name: 'create_about')]
-    #[Route('//admin/about/edit/{aboutUs}', name: 'edit_about')]
-    public function createOffer(Request $request, EntityManagerInterface $manager, AboutUs $aboutUs = null): Response
+    #[Route('/admin/about/edit/{aboutUs}', name: 'edit_about')]
+    public function createABout(Request $request, EntityManagerInterface $manager, AboutUs $aboutUs = null): Response
     {
-        if ($aboutUs == null){
+        if ($aboutUs == null) {
             $aboutUs = new AboutUs();
         }
 
         $form = $this->createForm(AboutType::class, $aboutUs);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             $aboutUs = $form->getData();
             $manager->persist($aboutUs);
             $manager->flush();
-            $this->addFlash('success', 'l\'offre a été créée');
+            $this->addFlash('success', 'la page à propos a été modifiée');
             $this->redirectToRoute('app_about');
         }
 
-        return $this->render('about/backoffice/create.html.twig',[
+        return $this->render('about/backoffice/create.html.twig', [
             'aboutUs' => $aboutUs,
             'aboutUsType' => $form->createView(),
         ]);
     }
 
+
     #[Route('/admin/about/list', name: 'list_about')]
-    public function listAboutUs(EntityManagerInterface $em)
+    public function listAboutUs(EntityManagerInterface $em): Response
     {
-        $aboutUs = $em->getRepository(AboutUs::class)->findBy(array(), null, '1');
+        $aboutUs = $em->getRepository(AboutUs::class)->findOneBy(array(), null, '1');
 
         return $this->render('about/backoffice/list.html.twig', [
             'aboutUs' => $aboutUs,

@@ -22,10 +22,10 @@ class AboutUs
     #[ORM\Column(length: 255)]
     private ?string $email = null;
 
-    #[ORM\OneToMany(mappedBy: 'aboutUs', targetEntity: Member::class)]
+    #[ORM\OneToMany(mappedBy: 'aboutUs', targetEntity: Member::class, cascade: ['persist', 'remove'])]
     private Collection $members;
 
-    #[ORM\OneToMany(mappedBy: 'aboutUs', targetEntity: Action::class)]
+    #[ORM\OneToMany(mappedBy: 'aboutUs', targetEntity: Action::class, cascade: ['persist', 'remove'])]
     private Collection $actions;
 
 
