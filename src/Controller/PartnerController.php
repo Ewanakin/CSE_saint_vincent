@@ -33,6 +33,7 @@ class PartnerController extends AbstractController
         {
             $partner = new Partner();
         }
+        dump($partner);
         $formPartner = $this->createForm(PartnerType::class, $partner);
         $formPartner->handleRequest($request);
         if($formPartner->isSubmitted() && $formPartner->isValid())
