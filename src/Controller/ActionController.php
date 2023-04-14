@@ -27,7 +27,7 @@ class ActionController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $action = $action->setAboutUs($aboutUs);
+            $action->setAboutUs($aboutUs);
             $action = $form->getData();
             $em->persist($action);
             $em->flush();
@@ -39,5 +39,23 @@ class ActionController extends AbstractController
             'action' => $action,
             'actionType' => $form->createView(),
         ]);
+    }
+
+    #[Route('/admin/about/action/list', name: 'list_actions')]
+    public function listMembers(EntityManagerInterface $em): Response
+    {
+        $actions = $em->getRepository(Action::class)->findAll();
+
+        return $this->render('about/backoffice/action/list.html.twig',[
+            'actions' => $actions,
+        ]);
+    }
+
+    #[Route('/admin/about/action/remove/{entity}', name: 'remove_action')]
+    public function removeAction(EntityManagerInterface $em, Action $entity)
+    {
+        $em->remove($entity);
+        $em->flush();
+        return $this->redirectToRoute('list_actions');
     }
 }

@@ -25,7 +25,7 @@ class MemberController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $member = $member->setAboutUs($aboutUs);
+            $member->setAboutUs($aboutUs);
             if ($form->get("picture")->getData() == null){
                 $member->setName($form->get("name")->getData());
                 $member->setFirstName($form->get("firstname")->getData());
@@ -55,10 +55,10 @@ class MemberController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/about/member/remove/{member}', name: 'remove_member')]
-    public function removeMember(EntityManagerInterface $em, Member $member)
+    #[Route('/admin/about/member/remove/{entity}', name: 'remove_member')]
+    public function removeMember(EntityManagerInterface $em, Member $entity)
     {
-        $em->remove($member);
+        $em->remove($entity);
         $em->flush();
         return $this->redirectToRoute('list_members');
     }

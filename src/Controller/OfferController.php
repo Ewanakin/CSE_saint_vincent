@@ -142,7 +142,7 @@ class OfferController extends AbstractController
         ]);
     }
 
-    #[Route('admin/offer/remove/{offer}', name: 'remove_offer')]
+    #[Route('admin/offer/remove/{entity}', name: 'remove_offer')]
     public function removeOffer(EntityManagerInterface $em, Offer $offer)
     {
         $em->remove($offer);
