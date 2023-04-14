@@ -21,17 +21,22 @@ class MemberController extends AbstractController
         if ($member == null) {
             $member = new Member();
         }
-
         $form = $this->createForm(MemberType::class, $member);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $member = $member->setAboutUs($aboutUs);
-            $member->setPicture($form->get("picture")->getData());
+            if ($form->get("picture")->getData() == null){
+                $member->setName($form->get("name")->getData());
+                $member->setFirstName($form->get("firstname")->getData());
+            }
+            else{
+                $member = $member->setPicture($form->get('picture')->getData());
+            }
             $em->persist($member);
             $em->flush();
             $this->addFlash('success', 'le membre a été créée');
-            return $this->redirectToRoute('list_about');
+            return $this->redirectToRoute('list_members');
         }
 
         return $this->render('about/backoffice/member/create.html.twig', [

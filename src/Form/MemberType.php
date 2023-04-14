@@ -34,7 +34,7 @@ class MemberType extends AbstractType
             ])
             ->add('picture', FileType::class, [
                 'mapped' => false,
-                'required' => true,
+                'required' => false,
                 'label' => "choisir votre image",
                 'constraints' => [
                     new File([
@@ -47,8 +47,11 @@ class MemberType extends AbstractType
                     ])
                 ]
             ]);
-        $builder->get('picture')->addModelTransformer($this->transformer);
+        if ($builder->get('picture') != null) {
+            $builder->get('picture')->addModelTransformer($this->transformer);
+        }
     }
+
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
