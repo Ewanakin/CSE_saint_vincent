@@ -21,7 +21,7 @@ class Reponse
     #[ORM\ManyToOne(inversedBy: 'responses')]
     private ?Question $question = null;
 
-    #[ORM\OneToMany(mappedBy: 'clientResponse', targetEntity: Survey::class)]
+    #[ORM\OneToMany(mappedBy: 'clientResponse', targetEntity: Survey::class, cascade: ['remove'])]
     private Collection $surveys;
 
     public function __construct()

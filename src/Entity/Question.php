@@ -18,10 +18,10 @@ class Question
     #[ORM\Column(length: 255)]
     private string $question;
 
-    #[ORM\OneToMany(mappedBy: 'question', targetEntity: Reponse::class)]
+    #[ORM\OneToMany(mappedBy: 'question', targetEntity: Reponse::class, cascade: ['remove'])]
     private Collection $reponses;
 
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column(nullable: true, options: ["default"=> 0])]
     private ?int $activate = null;
 
     public function __toString()

@@ -26,9 +26,21 @@ class QuestionController extends AbstractController
     public function questionActivate(EntityManagerInterface $em, Question $question): Response
     {
         $disabledQuestion = $em->getRepository(Question::class)->findOneBy(array("activate"=>1));
-        $disabledQuestion->setActivate(0);
-        $em->persist($disabledQuestion);
+        if($disabledQuestion!=null)
+        {
+            $disabledQuestion->setActivate(0);
+            $em->persist($disabledQuestion);
+        }
         $question->setActivate(1);
+        $em->persist($question);
+        $em->flush();
+        return $this->redirectToRoute('question_list');
+    }
+
+    #[Route('/admin/question/desactivate/{question}', name: 'question_desactivate')]
+    public function questionDesactivate(EntityManagerInterface $em, Question $question): Response
+    {
+        $question->setActivate(0);
         $em->persist($question);
         $em->flush();
         return $this->redirectToRoute('question_list');

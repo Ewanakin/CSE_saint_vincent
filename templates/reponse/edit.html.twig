@@ -3,7 +3,13 @@
 {% block title %}Hello QuestionController!{% endblock %}
 
 {% block body %}
-    {{ form_start(reponseForm) }}
-        <button type="submit">submit</button>
-    {{ form_end(reponseForm) }}
+    <div class="h-100 flex flex-col items-center h-100 mt-16">
+        <div class="flex flex-col justify-center mt-8">
+            {{ form_start(reponseForm) }}
+                {{ form_row(reponseForm.reponse) }}
+                {{ form_row(reponseForm.question) }}
+                <button type="submit">submit</button>
+            {{ form_end(reponseForm) }}
+        </div>
+    </div>
 {% endblock %}

@@ -13,7 +13,6 @@ class QuestionType extends AbstractType
     {
         $builder
             ->add('question')
-            ->add('activate')
         ;
     }
 

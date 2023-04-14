@@ -4,9 +4,15 @@
 
 {% block body %}
     {% for reponse in reponses %}
-        {{reponse.reponse}}<br>
-        <a href="{{path('reponse_edit', {reponse: reponse.id})}}">Modifier</a>
-        <a href="{{path('reponse_delete', {reponse: reponse.id})}}">Supprimer</a>
+        <div class=" py-3 flex space-x-12 border-solid border-b border-primary">
+            <div class="w-2/5 box-border">
+                <h3>{{ reponse.reponse }}</h3>
+            </div>
+            <div class="space-x-5 w-3/5">
+                <a href="{{ path('reponse_edit', {reponse: reponse.id}) }}">Modifier</a>
+                <a href="{{ path('reponse_delete', {reponse: reponse.id}) }}">Supprimer</a>
+            </div>
+        </div>
     {% endfor %}
 {% endblock %}
 

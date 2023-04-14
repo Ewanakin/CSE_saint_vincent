@@ -17,16 +17,16 @@ use Symfony\Component\Routing\Annotation\Route;
 class SurveyController extends AbstractController
 {
 
-    #[Route('/admin/survey/responses', name: 'survey_response')]
-    public function surveyResponse(ManagerRegistry $manager)
-    {
-        $surveyQuestion = $manager->getRepository(question::class)->findOneBy(array('activate'=>1));
-        $survey = $manager->getRepository(Survey::class)->findAll();
-        return $this->render('survey/list.html.twig', [
-            'survey' => $survey,
-            'surveyQuestion' => $surveyQuestion,
-        ]);
-    }
+    // #[Route('/admin/survey/responses', name: 'survey_response')]
+    // public function surveyResponse(ManagerRegistry $manager)
+    // {
+    //     $surveyQuestion = $manager->getRepository(question::class)->findOneBy(array('activate'=>1));
+    //     $survey = $manager->getRepository(Survey::class)->findAll();
+    //     return $this->render('survey/list.html.twig', [
+    //         'survey' => $survey,
+    //         'surveyQuestion' => $surveyQuestion,
+    //     ]);
+    // }
 
     #[Route('/survey', name: 'app_survey')]
     public function index(EntityManagerInterface $em, ManagerRegistry $manager, Request $request): Response
@@ -64,6 +64,7 @@ class SurveyController extends AbstractController
         $stats = $surveyRepo->oldStats($question->getId());
         return $this->render('survey/stats.html.twig', [
             'stats' => $stats,
+            'question' => $question,
         ]);
     }
 }
