@@ -1,0 +1,165 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bienvenue!{% endblock %}
+
+{% block body %}
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .main {
+            float: right;
+            margin-right: 150px;
+        }
+
+        .marqueur {
+            width: 10px;
+            font-size: 25px;
+            margin-left: 100px;
+            display: flex;
+        }
+
+        .img-page {
+            margin-top: 16px;
+        }
+
+        .Presentation {
+            background-color: #DCDCDC;
+            padding-right: 15px;
+            padding-left: 15px;
+            padding-top: 1px;
+            padding-bottom: 1px;
+        }
+
+        .Titre {
+            font-size: 28px;
+            color: #384394;
+            margin-top: -18px;
+        }
+
+        .Offre {
+            background-color: #DCDCDC;
+            padding-right: 25px;
+            padding-left: 15px;
+            padding-bottom: 35px;
+            margin-bottom: 20px;
+            margin-right: 10px;
+            padding-top: 15px;
+        }
+
+        .Top {
+            display: flex;
+            padding-bottom: 15px;
+        }
+
+        .Type {
+            margin-right: 10px;
+            background-color: #384394;
+            padding-left: 10px;
+            padding-right: 10px;
+            border-radius: 13px;
+            color: white;
+        }
+
+        .DescriptionSup1 {
+            padding-bottom: 15px;
+        }
+
+        .More {
+            float: right;
+        }
+
+    </style>
+    <div class="marqueur">
+        <div class="img-page">
+            <img style="width: 40px" src="../../../img/maison.jpg" alt="img">
+        </div>
+        <p style="display: flex;"><b>></b> Accueil </p>
+    </div>
+    <div class="main">
+        <div class="Presentation">
+            <div class="Titre">
+                <p>CSE Lycée Saint-Vincent</p>
+            </div>
+            <div class="text">
+                <p>Nous vous souhaitons la bienvenue sur le site du commité social et économique du lycée Saint-Vincent à Senlis.</p>
+                <p>Découvrez l'équipe et le rôle et missions de votre CSE</p>
+            </div>
+        </div>
+
+        <div class="TitreOffre">
+            <h1>Dernières offres ponctuelles</h1>
+        </div>
+
+        <div class="Offre">
+            <div class="Top">
+                <div class="Type">
+                    <p>Offre Ponctuelle</p>
+                </div>
+                <div class="Date">
+                    <p>Publié le 11 décembre 2022 - 10/12/2022 au 24/12/2022</p>
+                </div>
+            </div>
+            <div class="Description">
+                <p>Profitez de -23% sur une selection de parfum, en partenariat avec l'enseigne Nocibé de Senlis.</p>
+            </div>
+            <div class="DescriptionSup1">
+                <p>Merci de passer au bureau du CSE pour pouvoir passer commande.</p>
+            </div>
+            <div class="DescriptionSup2">
+                <p>Catalogue : <a>tarifs.pdf</a></p>
+            </div>
+            <div class="More">
+                <a href="">EN SAVOIR PLUS ></a>
+            </div>
+        </div>
+
+        <div class="Offre">
+            <div class="Top">
+                <div class="Type">
+                    <p>Offre Ponctuelle</p>
+                </div>
+                <div class="Date">
+                    <p>Publié le 11 décembre 2022 - 10/12/2022 au 24/12/2022</p>
+                </div>
+            </div>
+            <div class="Description">
+                <p>Profitez de -23% sur une selection de parfum, en partenariat avec l'enseigne Nocibé de Senlis.</p>
+            </div>
+            <div class="DescriptionSup1">
+                <p>Merci de passer au bureau du CSE pour pouvoir passer commande.</p>
+            </div>
+            <div class="DescriptionSup2">
+                <p>Catalogue : <a>tarifs.pdf</a></p>
+            </div>
+            <div class="More">
+                <a href="">EN SAVOIR PLUS ></a>
+            </div>
+        </div>
+
+        <div class="Offre">
+            <div class="Top">
+                <div class="Type">
+                    <p>Offre Ponctuelle</p>
+                </div>
+                <div class="Date">
+                    <p>Publié le 11 décembre 2022 - 10/12/2022 au 24/12/2022</p>
+                </div>
+            </div>
+            <div class="Description">
+                <p>Profitez de -23% sur une selection de parfum, en partenariat avec l'enseigne Nocibé de Senlis.</p>
+            </div>
+            <div class="DescriptionSup1">
+                <p>Merci de passer au bureau du CSE pour pouvoir passer commande.</p>
+            </div>
+            <div class="DescriptionSup2">
+                <p>Catalogue : <a>tarifs.pdf</a></p>
+            </div>
+            <div class="More">
+                <a href="">EN SAVOIR PLUS ></a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
