@@ -15,7 +15,9 @@
             {{ form_row(memberType.firstname) }}
             {{ form_row(memberType.name) }}
             {{ form_row(memberType.picture) }}
-            <img src="{{ asset(member.picture) }}" class="w-1/5">
+            {% if member.picture != null %}
+                <img src="{{ asset(member.picture) }}" class="w-1/5">
+            {% endif %}
             {% if app.request.attributes.get('_route') == 'create_member' %}
                 <button type="submit" class="btn">Ajouter un membre</button>
             {% endif %}

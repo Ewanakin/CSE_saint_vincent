@@ -13,10 +13,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class AboutController extends AbstractController
 {
     #[Route('/about', name: 'app_about')]
-    public function index(): Response
+    public function index(EntityManagerInterface $em, AboutUs $aboutUs = null): Response
     {
+        if ($aboutUs == null){
+            $aboutUs = new AboutUs();
+        }
+        $aboutUs = $em->getRepository(AboutUs::class)->findOneBy(array(), null, '1');
         return $this->render('about/index.html.twig', [
-            'controller_name' => 'AboutController',
+            'about' => $aboutUs,
         ]);
     }
 

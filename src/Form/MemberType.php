@@ -25,17 +25,17 @@ class MemberType extends AbstractType
 
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Prenom du membre',
+                'label' => 'Prenom du membre : ',
                 'required' => true,
             ])
             ->add('firstname', TextType::class, [
-                'label' => 'Nom du membre',
+                'label' => 'Nom du membre : ',
                 'required' => true,
             ])
             ->add('picture', FileType::class, [
                 'mapped' => false,
                 'required' => false,
-                'label' => "choisir votre image",
+                'label' => "Choisir la photo du membre : ",
                 'constraints' => [
                     new File([
                         'extensions' => [
@@ -43,13 +43,11 @@ class MemberType extends AbstractType
                             'jpg',
                             'png',
                         ],
-                        'extensionsMessage' => 'Veuillez choisir un fichier de type: pdf/jpg/png.'
+                        'extensionsMessage' => 'Veuillez choisir un fichier de type: pdf/jpg/png.',
                     ])
                 ]
             ]);
-        if ($builder->get('picture') != null) {
             $builder->get('picture')->addModelTransformer($this->transformer);
-        }
     }
 
     public function configureOptions(OptionsResolver $resolver): void

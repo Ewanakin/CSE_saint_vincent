@@ -35,7 +35,7 @@ class MemberController extends AbstractController
             }
             $em->persist($member);
             $em->flush();
-            $this->addFlash('success', 'le membre a été créée');
+            $this->addFlash('success', 'Le membre a été créée');
             return $this->redirectToRoute('list_members');
         }
 
