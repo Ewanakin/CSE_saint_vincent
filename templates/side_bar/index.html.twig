@@ -1,0 +1,204 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello SideBarController!{% endblock %}
+
+{% block body %}
+
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .Sidebar {
+        max-width: 300px;
+        margin-left: 204px;
+        margin-top: 136px;
+    }
+
+    img {
+        max-width: 100%;
+    }
+
+    .Fond-carrousel {
+        background-color: #C5E3EC;
+        padding: 20px 75px 10px 75px;
+        height: 172px;
+        width: 148px;
+        margin-bottom: 15px;
+    }
+    .Carrousel {
+        max-width: 800px;
+        position: relative;
+        height: 350px;
+        overflow: hidden;
+    }
+    .Menu {
+        position: absolute;
+        z-index: 11;
+        /*width: 18%;*/
+        width: 133px;
+        margin-top: 158px;
+        text-align: center;
+    }
+    .Menu label {
+        cursor: pointer;
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        background: #ccc;
+        border-radius: 50px;
+        margin: 0 0.2em 1em;
+    }
+    .Menu label:hover,.Menu label:focus {
+        background: #1c87c9;
+    }
+    .slide-input{
+        opacity: 0;
+    }
+    .slide-img {
+        /*width: 19%;*/
+        /*height: 42%;*/
+        width: 148px;
+        height: 143px;
+        position: absolute;
+        top: 0;
+        /*à garder à l'oeil*/
+        left: 0%;
+        z-index: 10;
+        transition: left 0s 0.75s;
+    }
+    [id^="slide"]:checked + .slide-img {
+        left: 0;
+        z-index: 100;
+        transition: left 0.65s ease-out;
+    }
+
+    .Sondage {
+        background-color: lightgray;
+        width: 300px;
+    }
+
+    .Titre-sondage {
+        background-color: #384394;
+        text-align: center;
+        color: white;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        font-size: 18px;
+    }
+
+    .Question {
+        font-size: 18px;
+        text-align: center;
+    }
+
+    .Choix {
+        padding-bottom: 20px;
+    }
+
+    .Partie-boutton {
+        background-color: #384394;
+        padding: 13px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .Partie-boutton button:first-child {
+        margin-right: 15px;
+        padding: 12px;
+    }
+
+    .Partie-boutton button:last-child {
+        margin-left: 15px;
+        padding: 12px 35px 12px 35px;
+    }
+
+    .Titre-B1 {
+        font-size: 27px;
+        color: #CCC65D;
+        padding-top: 20px;
+    }
+
+    .Section-B1 {
+        font-size: 18px;
+    }
+
+    .Lien-partenaires {
+        margin-left: 35px;
+    }
+
+</style>
+<div class="Sidebar">
+    <form class="Sondage">
+        <div class="Titre-sondage">
+            <p>Votre avis compte</p>
+        </div>
+        <form class="FAQ">
+            <div class="Question">
+                <p>Pour quel parc d'attraction souhaiteriez-vous obtenir des prix?</p>
+            </div>
+            <div class="Choix">
+                <input type="radio" id="choix1" name="choix" value="choix1">
+                <label for="choix1">Le parc Astérix</label><br>
+                <input type="radio" id="choix2" name="choix" value="choix2">
+                <label for="choix2">Le parc Disneyland</label><br>
+                <input type="radio" id="choix3" name="choix" value="choix3">
+                <label for="choix3">Le futuroscope</label><br>
+            </div>
+            <div class="Partie-boutton">
+                <button type="button">Voir les réponses</button>
+                <button type="submit">Valider</button>
+            </div>
+        </form>
+    </form>
+
+    <div class="B1">
+        <div class="Titre-B1">
+            <p>Accès rapide</p>
+        </div>
+        <div class="Section-B1">
+            <p> > Offres permanentes / Billetterie </p>
+            <p> > Nous contacter </p>
+        </div>
+    </div>
+
+    <div class="B1">
+        <div class="Titre-B1">
+            <p>Information de contact</p>
+        </div>
+        <div class="Section-B1">
+            <p> > Par téléphone <span style="color: dodgerblue;">: +33303030303</span> </p>
+            <p> > Par email <span style="color: dodgerblue;">: cse@lyceestvincent.fr</span> </p>
+            <p> > Au lycée <span style="color: dodgerblue;">: Bureau du CSE (1er étage bâtiment Saint-Vincent)</span> </p>
+        </div>
+    </div>
+
+    <div class="Titre-B1">
+        <p>Nos partenaires</p>
+    </div>
+    <div class="Fond-carrousel">
+        <div class="Carrousel">
+            <div class="Menu">
+                <label for="slide-dot-1"></label>
+                <label for="slide-dot-2"></label>
+                <label for="slide-dot-3"></label>
+            </div>
+{#            <input class="slide-input" id="slide-dot-1" type="radio" name="slides" checked>#}
+{#            <img class="slide-img" src="{{ asset('img/Jeff.png') }}">#}
+
+            <input class="slide-input" id="slide-dot-2" type="radio" name="slides">
+            <img class="slide-img" src="../../../img/leonidas.jpg">
+
+            <input class="slide-input" id="slide-dot-3" type="radio" name="slides">
+            <img class="slide-img" src="../../../img/Lindt.jpg">
+        </div>
+    </div>
+    <div class="Lien-partenaires">
+        <a href="">Découvrir tous nos partenaires</a>
+    </div>
+</div>
+
+
+{% endblock %}
