@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="h-100 flex flex-col items-center h-100 mt-16">
+        <div class="absolute lg:top-16 lg:left-16 lg:text-xl top-2 left-2 text-md hover:font-bold hover:ease-in duration-200">
+            <a href="{{ path('list_about') }}" class="text-primary flex justify-center"><span class="material-symbols-outlined text-md lg:text-2xl">arrow_back</span> Retour à la liste</a>
+        </div>
+        <h1 class="title">Modifier la page "à propos"</h1>
+        <div class="flex flex-col justify-center mt-8">
+            {{ form_start(aboutUsType, {'attr': {'class': 'space-y-5'}}) }}
+            {{ form_row(aboutUsType.rules) }}
+            {{ form_row(aboutUsType.email) }}
+            <button type="submit" class="btn">Modifier la page</button>
+            {{ form_end(aboutUsType) }}
+        </div>
+    </div>
+{% endblock %}

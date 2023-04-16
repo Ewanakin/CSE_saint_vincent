@@ -18,12 +18,12 @@ class Member
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $fisrtName = null;
+    private ?string $firstName = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $picture = null;
 
-    #[ORM\ManyToOne(inversedBy: 'members')]
+    #[ORM\ManyToOne(cascade: ['persist'], inversedBy: 'members')]
     private ?AboutUs $aboutUs = null;
 
     public function getId(): ?int
@@ -43,14 +43,14 @@ class Member
         return $this;
     }
 
-    public function getFisrtName(): ?string
+    public function getFirstName(): ?string
     {
-        return $this->fisrtName;
+        return $this->firstName;
     }
 
-    public function setFisrtName(string $fisrtName): self
+    public function setFirstName(string $firstName): self
     {
-        $this->fisrtName = $fisrtName;
+        $this->firstName = $firstName;
 
         return $this;
     }

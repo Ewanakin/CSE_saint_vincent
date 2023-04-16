@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="flex space-x-5">
+        <div class="bg-primary w-1/5 h-screen box-border">
+
+        </div>
+        <div class="relative w-full p-3" x-data="{open: false}">
+            <div class="absolute lg:text-xl top-2 left-2 text-md hover:font-bold hover:ease-in duration-200">
+                <a href="{{ path('list_about') }}" class="text-primary flex justify-center"><span class="material-symbols-outlined text-md lg:text-2xl">arrow_back</span> Retour à la liste</a>
+            </div>
+            <h1 class="title">Liste des Membres</h1>
+            <div class="mt-8">
+                <div class="flex space-x-12 ">
+                    <div class="w-2/5 box-border">
+                        <h5 class="text-primary font-bold">Nom des membres</h5>
+                    </div>
+                    <div class="w-3/5 box-border">
+                        <h5 class="text-primary font-bold">Actions</h5>
+                    </div>
+                </div>
+                {% for member in members %}
+                    <div class=" py-3 flex space-x-12 border-solid border-b border-primary">
+                        <div class="w-2/5 box-border">
+                            <h3>{{ member.name }}</h3>
+                            <h3>{{ member.firstName }}</h3>
+                        </div>
+                        <div class="w-3/5">
+                            <a href="{{ path('edit_member', {member: member.id}) }}">Modifier</a>
+                            {% set vars = {'method': 'remove_member', 'entity': member} %}
+                            {% include('component/remove.html.twig') with vars %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

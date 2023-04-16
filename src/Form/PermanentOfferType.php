@@ -43,6 +43,7 @@ class PermanentOfferType extends AbstractType
             ])
             ->add('description', TextareaType::class, [
                 "label" => "description de l'offre :",
+                'attr' => array('cols' => '45', 'rows' => '5', 'class' => 'flex flex-col')
             ]);
     }
 

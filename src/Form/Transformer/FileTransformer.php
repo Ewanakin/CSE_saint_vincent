@@ -15,7 +15,10 @@ class FileTransformer implements DataTransformerInterface
 
     public function reverseTransform($picture)
     {
-        $file = $picture->move('files/pictures', $picture->getClientOriginalName());
-        return $file->getPathname();
+        if ($picture != null) {
+            $file = $picture->move('files/pictures', $picture->getClientOriginalName());
+            return $file->getPathname();
+        }
+        return $picture;
     }
 }

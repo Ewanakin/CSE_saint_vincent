@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    <div class="flex space-x-5">
+    <div class="flex">
         <div class="bg-primary w-1/5 h-screen box-border">
 
         </div>
-        <div class="relative w-full p-3">
+        <div class="relative w-full p-5">
             <h1 class="title">Liste des offres</h1>
             <aside x-data="{param: '{{ offerType }}' }">
                 <a href="{{ path('list_offer', {offerType: 'permanent'}) }}" class="text-primary p-2 border hover:!text-[#fff] hover:bg-primary" :class="{'!text-[#fff] bg-primary ': param == 'permanent' }">Offres
@@ -12,8 +12,8 @@
                 <a href="{{ path('list_offer', {offerType: 'limited'}) }}" class="text-primary p-2 border hover:!text-[#fff] hover:bg-primary" :class="{'!text-[#fff] bg-primary ': param == 'limited' }">Offres
                     limitées</a>
             </aside>
-            <div class="mt-8">
-                <div class="flex space-x-12 ">
+            <div class="mt-8" x-data="{open: false}">
+                <div class="flex space-x-12">
                     <div class="w-2/5 box-border">
                         <h5 class="text-primary font-bold">Nom de l'offre</h5>
                     </div>
@@ -22,18 +22,18 @@
                     </div>
                 </div>
                 {% for offer in offers %}
-                    <div class=" py-3 flex space-x-12 border-solid border-b border-primary">
+                    <div class="py-3 flex space-x-12 border-solid border-b border-primary">
                         <div class="w-2/5 box-border">
                             <h3>{{ offer.name }}</h3>
                         </div>
-                        <div class="space-x-5 w-3/5">
+                        <div class="w-3/5">
                             {% if offerType is same as("permanent") %}
                                 <a href="{{ path('edit_offer', {offer: offer.id}) }}">Modifier</a>
                             {% endif %}
                             {% if offerType is same as("limited") %}
                                 <a href="{{ path('edit_limitedOffer', {offer: offer.id}) }}">Modifier</a>
                             {% endif %}
-                            <a href="{{ path('remove_offer', {offer: offer.id}) }}">Supprimer</a>
+                            {% include('component/remove.html.twig') with {'method': 'remove_offer', 'entity': offer } %}
                         </div>
                     </div>
                 {% endfor %}
