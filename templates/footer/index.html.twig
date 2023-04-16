@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Footer{% endblock %}
+
+{% block body %}
+<style>
+    body {
+        margin: 0;
+    }
+    .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        padding-top: 50px;
+        width: 100%;
+        background-color: #AF9380;
+        color: white;
+        display: flex;
+    }
+
+    .logo-image{
+        background-color: white;
+        width: 20%;
+        margin-left: 200px;
+        margin-bottom: 50px;
+        padding-left: 60px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+
+    .info {
+        flex-wrap: wrap;
+        margin-left: 50px;
+        padding-left: 100px;
+    }
+
+    .titre-info {
+        font-size: 18px;
+        padding-bottom: 20px;
+    }
+
+    .section1 {
+    }
+
+    .button {
+        border-radius: 12px;
+        background-color: white;
+        border: none;
+    }
+
+    button:hover {
+        background-color:grey;
+    }
+
+</style>
+    <div class="footer">
+        <div class="logo-image">
+            <img src="../../../img/Logo-Saint-Vincent.png" alt="logo">
+        </div>
+        <div class="info">
+            <div class="titre-info">
+                <a>CSE Lycée Saint-Vincent</a>
+            </div>
+            <div class="sections">
+                <div class="section1">
+                    <a style="padding-right: 70px">> Partenariat</a>
+                    <a>> Billetterie</a>
+                </div>
+                <div class="section2">
+                    <a style="padding-right: 28px">> A Propos de nous</a>
+                    <a>> Contact</a>
+                </div>
+            </div>
+        </div>
+        <div class="info">
+            <div class="titre-info">
+                <a>Inscrivez-vous aux offres</a>
+            </div>
+            <div class="sections">
+                <div class="section1">
+                    <a>Recevez un email à chaque nouvelle offre <br> sur le site internet. </a>
+                </div>
+                <div class="section2">
+                    <button class="button">Saisissez-votre email</button>
+                    <button class="button">S'inscrire</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
