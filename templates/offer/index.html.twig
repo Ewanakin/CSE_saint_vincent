@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    {% include('navbar/index.html.twig') %}
 <aside class="flex justify-center mt-5 space-x-2" x-data="{param: '{{ type }}' }">
     <a href="{{ path('show_offers') }}" class="text-primary p-2 border hover:text-[#fff] hover:bg-primary" :class="{'bg-primary !text-[#fff]': param == ''}">Toutes</a>
     <a href="{{ path('show_offers', {type: 'permanent'}) }}" class="text-primary p-2 border hover:text-[#fff] hover:bg-primary" :class="{'!text-[#fff] bg-primary ': param == 'permanent' }">Offres permanentes</a>

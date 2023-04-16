@@ -1,5 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block body %}
+    {% include('navbar/index.html.twig') %}
     <div class="flex flex-col m-auto md:w-2/4 w-3/4 space-y-12 mb-12">
         {% include ('about/component/member.html.twig') with {'about': about}  %}
         {% include ('about/component/rules.html.twig') with {'about': about} %}

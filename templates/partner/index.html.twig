@@ -3,6 +3,7 @@
 {% block title %}Hello PartnerController!{% endblock %}
 
 {% block body %}
+    {% include('navbar/index.html.twig') %}
     <div class="bg-black">
         {% for partner in partners %}
             <div>
