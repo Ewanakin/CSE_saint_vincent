@@ -3,8 +3,8 @@
 {% block title %}Hello SurveyController!{% endblock %}
 
 {% block body %}
-    <div class="flex">
-        <div class="items-center">
+    <div class="h-100 flex flex-col items-center h-100 mt-16">
+        <div class="flex flex-col justify-center mt-8">
             <h4>Voici les stats pour le sondage : {{ question.question }}</h4>
             {% for stat in stats %}
                 La réponse : {{stat.reponse}} à été répondue  {{stat.1}} fois<br>
