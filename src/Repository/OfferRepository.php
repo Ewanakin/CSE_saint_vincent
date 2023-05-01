@@ -64,6 +64,14 @@ class OfferRepository extends ServiceEntityRepository
         }
     }
 
+    public function orderedLimitedOffer()
+    {
+        return $this->createQueryBuilder('o')
+            ->innerJoin(LimitedOffer::class, 'l', 'WITH', 'o.id = l.id')
+            ->orderBy('l.orderNumber', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
 //    /**
 //     * @return Offer[] Returns an array of Offer objects
 //     */
