@@ -127,7 +127,7 @@ class OfferController extends AbstractController
     }
 
     #[Route('admin/offer/list/{offerType}', name: 'list_offer')]
-    public function listOffer(EntityManagerInterface $manager, string $offerType = null): Response
+    public function listOffer(Request $request, EntityManagerInterface $manager, PaginatorInterface $paginator, string $offerType = null): Response
     {
         $offers = null;
         if ($offerType === 'permanent' || $offerType === null) {
@@ -136,8 +136,14 @@ class OfferController extends AbstractController
             $offers = $manager->getRepository(LimitedOffer::class)->findAll();
         }
 
+        $offersPaginate = $paginator->paginate(
+            $offers,
+            $request->query->getInt('page', 1),
+            5
+        );
+
         return $this->render('offer/backoffice/list.html.twig', [
-            'offers' => $offers,
+            'offers' => $offersPaginate,
             'offerType' => $offerType
         ]);
     }
