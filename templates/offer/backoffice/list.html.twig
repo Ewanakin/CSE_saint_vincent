@@ -1,18 +1,16 @@
 {% extends 'base.html.twig' %}
 {% block body %}
     <div class="flex">
-        <div class="bg-primary w-1/5 h-screen box-border">
-
-        </div>
-        <div class="relative w-full p-5">
+        {% include('navbar/backoffice/index.html.twig') %}
+        <div class="relative w-full p-5 z-1">
             <h1 class="title">Liste des offres</h1>
-            <aside x-data="{param: '{{ offerType }}' }">
+            <aside x-data="{param: '{{ offerType }}' }" class="mt-8">
                 <a href="{{ path('list_offer', {offerType: 'permanent'}) }}" class="text-primary p-2 border hover:!text-[#fff] hover:bg-primary" :class="{'!text-[#fff] bg-primary ': param == 'permanent' }">Offres
                     permanentes</a>
                 <a href="{{ path('list_offer', {offerType: 'limited'}) }}" class="text-primary p-2 border hover:!text-[#fff] hover:bg-primary" :class="{'!text-[#fff] bg-primary ': param == 'limited' }">Offres
                     limitées</a>
             </aside>
-            <div class="mt-8" x-data="{open: false}">
+            <div class="mt-8 z-1" x-data="{open: false}">
                 <div class="flex space-x-12">
                     <div class="w-2/5 box-border">
                         <h5 class="text-primary font-bold">Nom de l'offre</h5>
@@ -41,7 +39,7 @@
         </div>
     </div>
     <aside class="absolute bottom-16 right-16 space-x-4">
-        <a href="{{ path('create_offer') }}" class="p-3 rounded-full border-primary border-solid bg-primary text-[#fff] hover:opacity-50" >Créer une offre permanente</a>
-        <a href="{{ path('create_limitedOffer') }}" class="p-3 rounded-full border-primary border-solid bg-primary text-[#fff] hover:opacity-50" >Créer une offre limité</a>
+        <a href="{{ path('create_offer') }}" class="p-3 rounded-full border-primary border-solid bg-primary text-[#fff] hover:opacity-50">Créer une offre permanente</a>
+        <a href="{{ path('create_limitedOffer') }}" class="p-3 rounded-full border-primary border-solid bg-primary text-[#fff] hover:opacity-50">Créer une offre limité</a>
     </aside>
 {% endblock %}
