@@ -37,13 +37,13 @@ class OfferController extends AbstractController
                     unset($offers[$key]);
                 }
             }
-
-            $offersPaginate = $paginator->paginate(
-                $offers,
-                $request->query->getInt('page', 1),
-                3
-            );
         }
+
+        $offersPaginate = $paginator->paginate(
+            $offers,
+            $request->query->getInt('page', 1),
+            3
+        );
 
         return $this->render('offer/index.html.twig', [
             'offers' => $offersPaginate,
@@ -54,10 +54,10 @@ class OfferController extends AbstractController
     #[Route('/offer/{offer}', name: 'show_offer')]
     public function showOffer(Offer $offer)
     {
-        if ($offer == null){
+        if ($offer == null) {
             $this->redirectToRoute('show_offers');
         }
-        return $this->render('offer/showOffer.html.twig',[
+        return $this->render('offer/showOffer.html.twig', [
             'offer' => $offer,
         ]);
     }
@@ -94,7 +94,7 @@ class OfferController extends AbstractController
 
     #[Route('/admin/offer/limited/create', name: 'create_limitedOffer')]
     #[Route('/admin/offer/limited/edit/{offer}', name: 'edit_limitedOffer')]
-    public function createOfferLimited(Request $request, EntityManagerInterface $manager,MailerInterface $mailerInterface, Offer $offer = null): Response
+    public function createOfferLimited(Request $request, EntityManagerInterface $manager, MailerInterface $mailerInterface, Offer $offer = null): Response
     {
         if ($offer == null) {
             $offer = new LimitedOffer();
