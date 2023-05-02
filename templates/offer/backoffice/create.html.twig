@@ -4,7 +4,7 @@
     <div x-data="{ open: false }" class="h-100 flex flex-col items-center h-100 mt-16"
          x-bind:class="open ? '' : 'bg-white'">
         <div class="absolute lg:top-16 lg:left-16 lg:text-xl top-2 left-2 text-md hover:font-bold hover:ease-in duration-200">
-            <a href="{{ path('list_offer', {'offerType': 'limited'}) }}" class="text-primary flex justify-center"><span class="material-symbols-outlined text-md lg:text-2xl">arrow_back</span> Retour à la liste</a>
+            <a href="{{ path('list_offer', {'offerType': 'permanent'}) }}" class="text-primary flex justify-center"><span class="material-symbols-outlined text-md lg:text-2xl">arrow_back</span> Retour à la liste</a>
         </div>
         {% if app.request.attributes.get('_route') == 'create_offer' %}
             <h1 class="title">Créer une offre</h1>

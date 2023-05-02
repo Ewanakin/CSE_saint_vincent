@@ -195,13 +195,18 @@ abstract class Offer
         }
     }
 
+//    public function offerType(Offer $offer)
+//    {
+//        if (is_a())
+//    }
+
     public function isTypeOffer(Offer $offer): string
     {
         $offerType = "";
-        if (is_a($offer, LimitedOffer::class)){
+        if (is_a($offer, LimitedOffer::class)) {
             $offerType = "Offre limité";
         }
-        if(is_a($offer, PermanentOffer::class)){
+        if (is_a($offer, PermanentOffer::class)) {
             $offerType = "Offre permanente";
         }
         return $offerType;
