@@ -153,7 +153,11 @@ class OfferController extends AbstractController
     {
         $em->remove($entity);
         $em->flush();
-        return $this->redirectToRoute('list_offer', array('offerType' => 'permanent'));
+        if (is_a($entity, PermanentOffer::class)){
+            return $this->redirectToRoute('list_offer', array('offerType' => 'permanent'));
+        }else{
+            return $this->redirectToRoute('list_offer', array('offerType' => 'limited'));
+        }
     }
 
     #[Route('admin/offer/remove/picture/{offerPicture}', name: 'remove_picture')]
