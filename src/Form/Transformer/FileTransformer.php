@@ -8,9 +8,13 @@ use Symfony\Component\HttpFoundation\File\File;
 
 class FileTransformer implements DataTransformerInterface
 {
-    public function transform($link)
+    public function transform($linkPicture)
     {
-        return $link;
+        if($linkPicture != null)
+        {
+            return new File($linkPicture);
+        }
+        return $linkPicture;        
     }
 
     public function reverseTransform($picture)
