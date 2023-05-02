@@ -31,7 +31,8 @@
                             {% if offerType is same as("limited") %}
                                 <a href="{{ path('edit_limitedOffer', {offer: offer.id}) }}">Modifier</a>
                             {% endif %}
-                            {% include('component/remove.html.twig') with {'method': 'remove_offer', 'entity': offer } %}
+                            {% set vars = {'method': 'remove_offer', 'entity': offer} %}
+                            {% include('component/remove.html.twig') with vars %}
                         </div>
                     </div>
                 {% endfor %}
