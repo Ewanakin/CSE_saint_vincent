@@ -19,6 +19,11 @@ Assurez vous que Symfony est installé sinon suivez ce lien :
 
 [Chapitre d'installation](https://symfony.com/download)
 
+Assurez vous que docker est installé sinon suivez ce lien : 
+
+[Chapitre d'installation](https://docs.docker.com/engine/install/)
+
+
 ### Etape 1 : Installation de l'application
 
 Ouvrir une console et taper la commande :
@@ -67,6 +72,9 @@ Pour lancer l'application il faut taper la commande :
 
 ```console
 symfony server:start -d
+npm run watch
+docker compose up -d
 ```
+docker est nécessaire à l'utilisation du mail catcher pour tester l'envoie de mail.
 
 L'application est maintenant prête.
