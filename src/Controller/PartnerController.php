@@ -25,8 +25,8 @@ class PartnerController extends AbstractController
         ]);
     }
 
-    #[Route('/partner/ajout', name: 'partner_add')]
-    #[Route('/partner/modification/{partner}', name: 'partner_edit')]
+    #[Route('/admin/partner/ajout', name: 'partner_add')]
+    #[Route('/admin/partner/modification/{partner}', name: 'partner_edit')]
     public function partnerEdit(EntityManagerInterface $em, Partner $partner = null, Request $request): Response
     {
         if($partner==null)
@@ -49,7 +49,7 @@ class PartnerController extends AbstractController
         ]);
     }
 
-    #[Route('/partner/supprimer/{partner}', name: 'partner_delete')]
+    #[Route('/admin/partner/supprimer/{partner}', name: 'partner_delete')]
     public function partnerDelete(EntityManagerInterface $em, Partner $partner): Response
     {
         $em->remove($partner);
