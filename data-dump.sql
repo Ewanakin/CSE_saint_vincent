@@ -63,7 +63,7 @@ CREATE TABLE `action` (
 
 LOCK TABLES `action` WRITE;
 /*!40000 ALTER TABLE `action` DISABLE KEYS */;
-INSERT INTO `action` VALUES (6,2,'- Proposer une garderie pour les enfants des salariés'),(7,2,'tabasser des vieilles'),(8,2,'- Améliorer les conditions de travail des profs.'),(10,2,'- Négociation de budget pour proposer plus d\'offres.'),(11,2,'- Proposer une activité commune à tout le personnel une fois par an financé par le CSE');
+INSERT INTO `action` VALUES (6,2,'- Proposer une garderie pour les enfants des salariés'),(8,2,'- Améliorer les conditions de travail des profs.'),(10,2,'- Négociation de budget pour proposer plus d\'offres.'),(11,2,'- Proposer une activité commune à tout le personnel une fois par an financé par le CSE');
 /*!40000 ALTER TABLE `action` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -167,7 +167,7 @@ CREATE TABLE `member` (
 
 LOCK TABLES `member` WRITE;
 /*!40000 ALTER TABLE `member` DISABLE KEYS */;
-INSERT INTO `member` VALUES (7,2,'Fethi','Ammar','files/pictures/827.jpg'),(8,2,'Valérie','Pécresse','files/pictures/chemise.png'),(9,2,'Barre','Anthony','files/pictures/IMG_2787.jpg'),(11,2,'Macron','Emmanuel',NULL),(12,2,'Enzo','Ferrari',NULL);
+INSERT INTO `member` VALUES (7,2,'Fethi','Ammar','files/pictures/827.jpg'),(8,2,'Valérie','Pécresse','files/pictures/chemise.png'),(11,2,'Macron','Emmanuel',NULL),(12,2,'Enzo','Ferrari',NULL);
 /*!40000 ALTER TABLE `member` ENABLE KEYS */;
 UNLOCK TABLES;
 
