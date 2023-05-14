@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello SurveyController!{% endblock %}
+
+{% block body %}
+    {{surveyQuestion.question}}<br><br>
+    {% for response in survey %}
+        {% if response.clientResponse.question.id == surveyQuestion.id %}
+            {{response.clientResponse.reponse}}<br>
+        {% endif %}
+    {% endfor %}
+{% endblock %}

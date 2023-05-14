@@ -56,4 +56,5 @@ class PartnerController extends AbstractController
         $em->flush();
         return $this->redirectToRoute("partner_list");
     }
+    
 }
