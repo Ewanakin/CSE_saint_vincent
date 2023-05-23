@@ -1,8 +1,10 @@
 <div class="bg-secondary p-3">
     <h3 class="text-[#fff] text-xl">Liste des actions menées par le CSE</h3>
     <ul class="list-disc pl-5">
+    {% if about.actions[0].id is defined %}
         {% for action in about.actions %}
             <li>{{ action.action }}</li>
         {% endfor %}
+    {% endif %}
     </ul>
 </div>

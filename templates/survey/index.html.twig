@@ -5,6 +5,7 @@
 {% block body %}
     {{survey.question}}
     {{ form_start(surveyForm) }}
+        {{ form_row(surveyForm.clientResponse) }}
         <button type="submit">Submit</button>
     {{ form_end(surveyForm) }}
 {% endblock %}

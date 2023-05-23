@@ -53,8 +53,12 @@
 
 </style>
     <div class="footer">
-        <div class="logo-image">
-            <img src="../../../img/Logo-Saint-Vincent.png" alt="logo">
+        <div>
+            <img src="files/pictures/svlogo.png" alt="logo">
+        </div>
+        <div class="">
+            <h4>Contact</h4>
+            {{ render(controller('App\\Controller\\ContactController::index')) }}
         </div>
         <div class="info">
             <div class="titre-info">
@@ -67,8 +71,10 @@
                 </div>
                 <div class="section2">
                     <a style="padding-right: 28px">> A Propos de nous</a>
-                    <a>> Contact</a>
                 </div>
+            </div>
+            <div>
+                {{ render(controller('App\\Controller\\SurveyController::index')) }}
             </div>
         </div>
         <div class="info">

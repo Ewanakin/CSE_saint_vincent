@@ -16,24 +16,12 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class SurveyController extends AbstractController
 {
-
-    // #[Route('/admin/survey/responses', name: 'survey_response')]
-    // public function surveyResponse(ManagerRegistry $manager)
-    // {
-    //     $surveyQuestion = $manager->getRepository(question::class)->findOneBy(array('activate'=>1));
-    //     $survey = $manager->getRepository(Survey::class)->findAll();
-    //     return $this->render('survey/list.html.twig', [
-    //         'survey' => $survey,
-    //         'surveyQuestion' => $surveyQuestion,
-    //     ]);
-    // }
-
     #[Route('/survey', name: 'app_survey')]
     public function index(EntityManagerInterface $em, ManagerRegistry $manager, Request $request): Response
     {
         $newSurvey = new Survey();
         $survey = $manager->getRepository(Question::class)->findOneBy(array('activate'=>1));
-        $surveyForm = $this->createForm(SurveyType::class, null, array("reponseFromQuestion"=> $survey->getId()));
+        $surveyForm = $this->createForm(SurveyType::class, null, array("reponseFromQuestion"=> $survey->getId(), 'action'=>$this->generateUrl('app_survey')));
         $surveyForm->handleRequest($request);
         if($surveyForm->isSubmitted() && $surveyForm->isValid())
         {
@@ -42,6 +30,7 @@ class SurveyController extends AbstractController
             $newSurvey->setDate($date);
             $em->persist($newSurvey);
             $em->flush();
+            return $this->redirectToRoute('app_page_accueil');
         }
         return $this->render('survey/index.html.twig', [
             'surveyForm' => $surveyForm,

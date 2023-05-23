@@ -7,30 +7,20 @@
             <div class="mt-8 z-1" x-data="{open: false}">
                 <div class="flex space-x-12">
                     <div class="w-2/5 box-border">
-                        <h5 class="text-primary font-bold">Prénom</h5>
+                        <h5 class="text-primary font-bold">Nom de l'offre</h5>
                     </div>
-                    <div class="w-2/5 box-border">
-                        <h5 class="text-primary font-bold">Nom</h5>
-                    </div>
-                    <div class="w-2/5 box-border">
-                        <h5 class="text-primary font-bold">Email</h5>
-                    </div>
-                    <div class="w-4/5 box-border">
-                        <h5 class="text-primary font-bold">Message</h5>
-                    </div>
-                    <div class="w-1/5 box-border">
-                        <h5 class="text-primary font-bold">Action</h5>
+                    <div class="w-3/5 box-border">
+                        <h5 class="text-primary font-bold">Actions</h5>
                     </div>
                 </div>
-                {% for survey in surveys %}
+                {% for partner in partners %}
                     <div class="py-3 flex space-x-12 border-solid border-b border-primary">
                         <div class="w-2/5 box-border">
+                            <h3>{{ partner.name }}</h3>
                         </div>
-                        {% if response.clientResponse.question.id == surveyQuestion.id %}
-                            {{response.clientResponse.reponse}}<br>
-                        {% endif %}
-                        <div class="w-1/5">
-                            <a href="{{path('contact_delete', {contact: contact.id})}}">Supprimer</a>
+                        <div class="w-3/5">
+                            <a href="{{path('partner_edit', {partner: partner.id})}}">Modifier</a>
+                            <a href="{{path('partner_delete', {partner: partner.id})}}">Supprimer</a>
                         </div>
                     </div>
                 {% endfor %}

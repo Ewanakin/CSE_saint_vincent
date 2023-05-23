@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Question;
 use App\Entity\Reponse;
 use App\Form\ReponseType;
 use App\Form\ResponseType;
@@ -14,10 +15,10 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ReponseController extends AbstractController
 {
-    #[Route('/admin/reponse/list', name: 'reponse_list')]
-    public function index(ManagerRegistry $manager): Response
+    #[Route('/admin/reponse/list/{question}', name: 'reponse_list')]
+    public function index(ManagerRegistry $manager, Question $question=null): Response
     {
-        $reponses = $manager->getRepository(Reponse::class)->findAll();
+        $reponses = $manager->getRepository(Reponse::class)->findBy(array('question'=>$question));
         return $this->render('reponse/index.html.twig', [
             'reponses' => $reponses,
         ]);
@@ -38,7 +39,7 @@ class ReponseController extends AbstractController
             $reponse = $reponseForm->getData();
             $em->persist($reponse);
             $em->flush();
-            return $this->redirectToRoute("reponse_list");
+            return $this->redirectToRoute("reponse_list", array('question'=>$reponse->getQuestion()->getId()));
         }
         return $this->render('reponse/edit.html.twig', [
             'reponseForm' => $reponseForm,

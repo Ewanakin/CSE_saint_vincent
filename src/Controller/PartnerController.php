@@ -18,9 +18,18 @@ class PartnerController extends AbstractController
     #[Route('/partner', name: 'partner_list')]
     public function partnerList(ManagerRegistry $em): Response
     {
-
         $partners = $em->getRepository(Partner::class)->findAll();
         return $this->render('partner/index.html.twig', [
+            'partners' => $partners,
+        ]);
+    }
+
+
+    #[Route('/admin/partner', name: 'partner_admin_list')]
+    public function partnerAdminList(ManagerRegistry $em): Response
+    {
+        $partners = $em->getRepository(Partner::class)->findAll();
+        return $this->render('partner/list.html.twig', [
             'partners' => $partners,
         ]);
     }
@@ -33,15 +42,15 @@ class PartnerController extends AbstractController
         {
             $partner = new Partner();
         }
-        dump($partner);
         $formPartner = $this->createForm(PartnerType::class, $partner);
         $formPartner->handleRequest($request);
         if($formPartner->isSubmitted() && $formPartner->isValid())
         {
             $partner = $formPartner->getData();
+            $partner->setLink($formPartner->get('link')->getData());
             $em->persist($partner);
             $em->flush();
-            return $this->redirectToRoute("partner_list");
+            return $this->redirectToRoute("partner_admin_list");
         }
         return $this->render('partner/edit.html.twig', [
             'partnerForm' => $formPartner->createView(),
@@ -54,7 +63,7 @@ class PartnerController extends AbstractController
     {
         $em->remove($partner);
         $em->flush();
-        return $this->redirectToRoute("partner_list");
+        return $this->redirectToRoute("partner_admin_list");
     }
     
 }

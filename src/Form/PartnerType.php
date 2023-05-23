@@ -25,7 +25,10 @@ class PartnerType extends AbstractType
             ->add('name')
             ->add('website')
             ->add('description')
-            ->add('link', FileType::class)
+            ->add('link', FileType::class, [
+                'mapped' => false,
+                'required' => false,
+            ])
         ;
         $builder->get('link')->addModelTransformer($this->transformer);
     }

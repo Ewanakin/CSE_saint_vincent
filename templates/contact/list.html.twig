@@ -22,13 +22,20 @@
                         <h5 class="text-primary font-bold">Action</h5>
                     </div>
                 </div>
-                {% for survey in surveys %}
+                {% for contact in contacts %}
                     <div class="py-3 flex space-x-12 border-solid border-b border-primary">
                         <div class="w-2/5 box-border">
+                            {{contact.firstName}}
                         </div>
-                        {% if response.clientResponse.question.id == surveyQuestion.id %}
-                            {{response.clientResponse.reponse}}<br>
-                        {% endif %}
+                        <div class="w-2/5 box-border">
+                            {{contact.lastName}}
+                        </div>
+                        <div class="w-2/5 box-border">
+                            {{contact.email}}
+                        </div>
+                        <div class="w-4/5 box-border">
+                            {{contact.message}}
+                        </div>
                         <div class="w-1/5">
                             <a href="{{path('contact_delete', {contact: contact.id})}}">Supprimer</a>
                         </div>

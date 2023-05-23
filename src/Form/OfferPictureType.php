@@ -31,6 +31,7 @@ class OfferPictureType extends AbstractType
                             'pdf',
                             'jpg',
                             'png',
+                            'jpeg'
                         ],
                         'extensionsMessage' => 'Veuillez choisir un fichier de type: pdf/jpg/png.'
                     ])

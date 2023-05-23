@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Question;
 use App\Form\QuestionType;
+use App\Repository\SurveyRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,11 +15,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class QuestionController extends AbstractController
 {
     #[Route('/admin/question/list', name: 'question_list')]
-    public function index(ManagerRegistry $manager): Response
+    public function index(ManagerRegistry $manager, SurveyRepository $surveyRepo): Response
     {
+        $stats = $surveyRepo->activateStats();
         $questions = $manager->getRepository(Question::class)->findAll();
         return $this->render('question/index.html.twig', [
             "questions" => $questions,
+            'stats' => $stats
         ]);
     }
 
@@ -53,6 +56,7 @@ class QuestionController extends AbstractController
         if($question == null)
         {
             $question = new Question();
+            $check = 1;
         }
         $questionForm = $this->createForm(QuestionType::class, $question);
         $questionForm->handleRequest($request);
@@ -61,7 +65,7 @@ class QuestionController extends AbstractController
             $question = $questionForm->getData();
             $em->persist($question);
             $em->flush();
-            return $this->redirectToRoute("question_list");
+            return $this->redirectToRoute('reponse_list', array('question'=>$question->getId()));
         }
         return $this->render('question/edit.html.twig', [
             'questionForm' => $questionForm,

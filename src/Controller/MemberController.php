@@ -25,6 +25,7 @@ class MemberController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $member = $form->getData();
             $member->setAboutUs($aboutUs);
             if ($form->get("picture")->getData() == null){
                 $member->setName($form->get("name")->getData());

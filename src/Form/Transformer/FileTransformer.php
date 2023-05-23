@@ -10,6 +10,8 @@ class FileTransformer implements DataTransformerInterface
 {
     public function transform($link)
     {
+        if($link!=null)
+        {return new File($link);}
         return $link;
     }
 

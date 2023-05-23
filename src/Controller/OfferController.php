@@ -34,7 +34,7 @@ class OfferController extends AbstractController
                 if ($offer->getOrderNumber() === 0
                     || $offer->getDisplayStartDate() >= \DateTime::createFromFormat('Y-m-d', date('Y-m-d'))
                     || $offer->getDisplayEndDate() <= \DateTime::createFromFormat('Y-m-d', date('Y-m-d'))) {
-                    unset($offers[$key]);
+                    // unset($offers[$key]);
                 }
             }
         }
@@ -110,6 +110,7 @@ class OfferController extends AbstractController
                 $offer = $form->getData();
                 $manager->persist($offer);
                 $manager->flush();
+                # envoie du mail
                 $dispatcher->addListener('limited.offer.event', array($listener, 'onLimitedOfferEvent'));
                 $dispatcher->dispatch(new LimitedOfferEvent($offer, $newsletters, $mailerInterface), LimitedOfferEvent::NAME);
                 $this->redirectToRoute('list_offer');

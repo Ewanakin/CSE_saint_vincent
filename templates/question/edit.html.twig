@@ -10,5 +10,7 @@
                 <button type="submit">submit</button>
             {{ form_end(questionForm) }}
         </div>
+        <a href="{{ path('reponse_list', {question: question.id}) }}" class="cursor-pointer hover:font-bold">Voir les réponses du sondage</a>
+        <a href="{{ path('question_list') }}" class="cursor-pointer hover:font-bold">Retourner à la gestion des Sondages</a>
     </div>
 {% endblock %}
